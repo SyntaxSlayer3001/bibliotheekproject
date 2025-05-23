@@ -1,6 +1,7 @@
 ﻿using Domain_bib.Business;
 using Domain_bib.Persistence;
 using Microsoft.VisualBasic;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,41 +14,101 @@ using System.Windows.Forms;
 
 namespace inlogformulier
 {
+    /// <summary>
+    /// Represents the form for updating an existing book in the library system.
+    /// Provides UI actions for entering new book details and submitting the update to the database.
+    /// </summary>
     public partial class UpdateBoek : Form
     {
+        /// <summary>
+        /// The unique ID of the book to update.
+        /// </summary>
         private int _boekenId;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UpdateBoek"/> class with the specified book ID.
+        /// Sets up the form and configures the genre ComboBox to only allow selection from the list (no free text).
+        /// </summary>
+        /// <param name="boekenId">The unique ID of the book to update.</param>
         public UpdateBoek(int boekenId)
         {
             InitializeComponent();
             _boekenId = boekenId;
+            this.Load += UpdateBoek_Load;
         }
-
+        
+        /// <summary>
+        /// Controller instance for business logic operations.
+        /// </summary>
         Controller conn = new Controller();
 
+        /// <summary>
+        /// Handles the click event for the "Update Boek" button.
+        /// Collects updated book input, updates the book in the database, and clears the input fields.
+        /// </summary>
         private void btnUpdateBoek_Click(object sender, EventArgs e)
         {
-            // Verzamel de nieuwe waarden
+            // Collect new values
             string titel = tbTitelUpdate.Text.Trim();
-            int genreId = int.TryParse(tbGenreIDUpdate.Text, out int id) ? id : 0;
+            int genreId = (int)comboBoxUpdateGenre.SelectedValue;
             string auteur = tbAuteurUpdate.Text.Trim();
             string uitgever = tbUitgeverUpdate.Text.Trim();
             string taal = tbTaalUpdate.Text.Trim();
             int graad = int.TryParse(tbGraadUpdate.Text, out int graadId) ? graadId : 0;
             string isbn = tbISBNUpdate.Text.Trim();
 
-            // Update het boek
+            // Update the book
             conn.UpdateBoek(_boekenId, titel, genreId, auteur, uitgever, taal, graad, isbn);
             MessageBox.Show("Boek geüpdatet");
 
-            // Velden leegmaken
+            // Clear fields
             tbAuteurUpdate.Clear();
-            tbGenreIDUpdate.Clear();
+            comboBoxUpdateGenre.SelectedIndex = -1;
             tbGraadUpdate.Clear();
             tbISBNUpdate.Clear();
             tbTitelUpdate.Clear();
             tbTaalUpdate.Clear();
             tbUitgeverUpdate.Clear();
+        }
+
+        /// <summary>
+        /// Retrieves the list of genres from the database.
+        /// </summary>
+        /// <returns>A list of genres.</returns>
+        private List<Genre> GetGenres()
+        {
+            var genres = new List<Genre>();
+            string connectionString = "server=localhost;user=root;database=eindprojectbibliotheek;port=3306;password=1234";
+            using (var conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT GenreID, GenreNaam FROM tblGenre";
+                using (var cmd = new MySqlCommand(query, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        genres.Add(new Genre
+                        {
+                            Id = reader.GetInt32("GenreID"),
+                            Name = reader.GetString("GenreNaam")
+                        });
+                    }
+                }
+            }
+            return genres;
+        }
+
+        /// <summary>
+        /// Handles the Load event for the UpdateBoek form.
+        /// Configures the genre ComboBox to display genres retrieved from the database.
+        /// </summary>
+        private void UpdateBoek_Load(object sender, EventArgs e)
+        {
+            comboBoxUpdateGenre.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxUpdateGenre.DataSource = GetGenres();
+            comboBoxUpdateGenre.DisplayMember = "Name";
+            comboBoxUpdateGenre.ValueMember = "Id";
         }
     }
 }

@@ -13,15 +13,30 @@ using System.Windows.Forms;
 
 namespace inlogformulier
 {
+    /// <summary>
+    /// Represents the teacher screen for managing books in the library system.
+    /// Provides UI actions for adding, updating, deleting, and refreshing books.
+    /// </summary>
     public partial class Leeraarscherm : Form
     {
+        /// <summary>
+        /// Controller instance for business logic operations.
+        /// </summary>
         Controller conn = new Controller();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Leeraarscherm"/> class.
+        /// Loads the list of books on startup.
+        /// </summary>
         public Leeraarscherm()
         {
             InitializeComponent();
             LoadBoeken();
         }
 
+        /// <summary>
+        /// Loads the list of books from the database and displays them in the UI.
+        /// </summary>
         private void LoadBoeken()
         {
             var mapper = new Boekmapper();
@@ -33,23 +48,42 @@ namespace inlogformulier
             }
         }
 
+        /// <summary>
+        /// Opens the form to add a new book.
+        /// </summary>
         private void btnAddboek_Click(object sender, EventArgs e)
         {
             Form form = new Toevoegscherm();
             form.ShowDialog();
         }
 
+        /// <summary>
+        /// Refreshes the list of books displayed in the UI.
+        /// </summary>
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             LoadBoeken();
         }
 
+        /// <summary>
+        /// Opens the form to update a book, after prompting for a valid book ID.
+        /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
-            Form form = new Toevoegscherm();
+            // Vraag om het BoekID
+            string input = Interaction.InputBox("Geef het BoekID van het boek dat je wilt updaten:", "BoekID invoeren", "");
+            if (!int.TryParse(input, out int boekenId) || boekenId <= 0)
+            {
+                MessageBox.Show("Ongeldig BoekID.");
+                return;
+            }
+            Form form = new UpdateBoek(boekenId); // Geef het ID mee
             form.ShowDialog();
         }
 
+        /// <summary>
+        /// Deletes a book after prompting for a valid book ID, then refreshes the list.
+        /// </summary>
         private void btnDeleteBoek_Click(object sender, EventArgs e)
         {
             string input = Interaction.InputBox("Geef het BoekID van het boek dat je wilt verwijderen:", "BoekID invoeren", "");

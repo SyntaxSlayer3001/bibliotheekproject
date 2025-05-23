@@ -3,14 +3,35 @@ using MySql.Data.MySqlClient;
 
 namespace Domain_bib.Persistence
 {
+    /// <summary>
+    /// Handles database operations for books and users in the library system.
+    /// Provides methods to insert, update, delete, and retrieve books and users.
+    /// </summary>
     public class Boekmapper
     {
+        /// <summary>
+        /// The connection string used to connect to the MySQL database.
+        /// </summary>
         private readonly string _connectionString;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Boekmapper"/> class with a default connection string.
+        /// </summary>
         public Boekmapper()
         {
             _connectionString = "server=localhost;user=root;database=eindprojectbibliotheek;port=3306;password=1234";
         }
+
+        /// <summary>
+        /// Inserts a new book into the database.
+        /// </summary>
+        /// <param name="titel">The title of the book.</param>
+        /// <param name="GenreId">The genre ID of the book.</param>
+        /// <param name="auteur">The author of the book.</param>
+        /// <param name="uitgever">The publisher of the book.</param>
+        /// <param name="taal">The language of the book.</param>
+        /// <param name="graad">The grade of the book.</param>
+        /// <param name="isbn">The ISBN of the book.</param>
         public void InsertBoek(string titel, int GenreId, string auteur, string uitgever, string taal, int graad, string isbn)
         {
             using (var connection = new MySqlConnection(_connectionString))
@@ -27,6 +48,11 @@ namespace Domain_bib.Persistence
                 command.ExecuteNonQuery();
             }
         }
+
+        /// <summary>
+        /// Retrieves all books from the database.
+        /// </summary>
+        /// <returns>A list of <see cref="Boek"/> objects.</returns>
         public List<Boek> GetBoeken()
         {
             var boekenlijst = new List<Boek>();
@@ -56,6 +82,12 @@ namespace Domain_bib.Persistence
             return boekenlijst;
         }
 
+        /// <summary>
+        /// Retrieves the rights ID for a user based on email and password.
+        /// </summary>
+        /// <param name="email">The user's email address.</param>
+        /// <param name="password">The user's password.</param>
+        /// <returns>The rights ID if found; otherwise, null.</returns>
         public int? GetRechtId(string email, string password)
         {
             using (var connection = new MySqlConnection(_connectionString))
@@ -76,6 +108,14 @@ namespace Domain_bib.Persistence
             }
         }
 
+        /// <summary>
+        /// Inserts a new user into the database.
+        /// </summary>
+        /// <param name="email">The user's email address.</param>
+        /// <param name="naam">The user's last name.</param>
+        /// <param name="voornaam">The user's first name.</param>
+        /// <param name="wachtwoord">The user's password.</param>
+        /// <param name="rechtId">The user's rights ID.</param>
         public void InsertGebruiker(string email, string naam, string voornaam, string wachtwoord, int rechtId)
         {
             using (var connection = new MySqlConnection(_connectionString))
@@ -93,6 +133,17 @@ namespace Domain_bib.Persistence
             }
         }
 
+        /// <summary>
+        /// Updates an existing book in the database.
+        /// </summary>
+        /// <param name="boekenId">The unique book ID.</param>
+        /// <param name="titel">The title of the book.</param>
+        /// <param name="genreId">The genre ID.</param>
+        /// <param name="auteur">The author of the book.</param>
+        /// <param name="uitgever">The publisher of the book.</param>
+        /// <param name="taal">The language of the book.</param>
+        /// <param name="graad">The grade of the book.</param>
+        /// <param name="isbn">The ISBN of the book.</param>
         public void UpdateBoek(int boekenId, string titel, int genreId, string auteur, string uitgever, string taal, int graad, string isbn)
         {
             using (var connection = new MySqlConnection(_connectionString))
@@ -113,6 +164,10 @@ namespace Domain_bib.Persistence
             }
         }
 
+        /// <summary>
+        /// Deletes a book from the database.
+        /// </summary>
+        /// <param name="boekenId">The unique book ID to delete.</param>
         public void DeleteBoek(int boekenId)
         {
             using (var connection = new MySqlConnection(_connectionString))

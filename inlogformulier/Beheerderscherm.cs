@@ -2,67 +2,86 @@
 using Domain_bib.Persistence;
 using Microsoft.VisualBasic;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace inlogformulier
 {
+    /// <summary>
+    /// Represents the administrator screen for managing books and users in the library system.
+    /// Provides UI actions for adding, updating, deleting, and refreshing books and users.
+    /// </summary>
     public partial class Beheerderscherm : Form
     {
-        Controller conn = new Controller();
+        /// <summary>
+        /// Controller instance for business logic operations.
+        /// </summary>
+        private readonly Controller conn = new();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Beheerderscherm"/> class.
+        /// Loads the list of books on startup.
+        /// </summary>
         public Beheerderscherm()
         {
             InitializeComponent();
             LoadBoeken();
         }
 
+        /// <summary>
+        /// Loads the list of books from the database and displays them in the UI.
+        /// </summary>
         private void LoadBoeken()
         {
-            var mapper = new Boekmapper();
+            var mapper = new Domain_bib.Persistence.Boekmapper();
             var boekenlijst = mapper.GetBoeken();
             tbBoekenlijst.Items.Clear();
             foreach (var boeken in boekenlijst)
             {
-                tbBoekenlijst.Items.Add(boeken); // ToString() wordt automatisch gebruikt
+                tbBoekenlijst.Items.Add(boeken);
             }
         }
 
+        /// <summary>
+        /// Opens the form to add a new book.
+        /// </summary>
         private void btnAddboek_Click(object sender, EventArgs e)
         {
-            Form form = new Toevoegscherm();
+            using var form = new Toevoegscherm();
             form.ShowDialog();
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            LoadBoeken();
-        }
+        /// <summary>
+        /// Refreshes the list of books displayed in the UI.
+        /// </summary>
+        private void btnRefresh_Click(object sender, EventArgs e) => LoadBoeken();
 
+        /// <summary>
+        /// Opens the form to add a new user.
+        /// </summary>
         private void btnAddUser_Click(object sender, EventArgs e)
         {
-            Form form = new ToevoegGebruiker();
+            using var form = new ToevoegGebruiker();
             form.ShowDialog();
         }
 
+        /// <summary>
+        /// Opens the form to update a book, after prompting for a valid book ID.
+        /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
-            // Vraag om het BoekID
             string input = Interaction.InputBox("Geef het BoekID van het boek dat je wilt updaten:", "BoekID invoeren", "");
             if (!int.TryParse(input, out int boekenId) || boekenId <= 0)
             {
                 MessageBox.Show("Ongeldig BoekID.");
                 return;
             }
-            Form form = new UpdateBoek(boekenId); // Geef het ID mee
+            using var form = new UpdateBoek(boekenId);
             form.ShowDialog();
         }
 
+        /// <summary>
+        /// Deletes a book after prompting for a valid book ID, then refreshes the list.
+        /// </summary>
         private void btnDeleteBoek_Click(object sender, EventArgs e)
         {
             string input = Interaction.InputBox("Geef het BoekID van het boek dat je wilt verwijderen:", "BoekID invoeren", "");
@@ -71,11 +90,9 @@ namespace inlogformulier
                 MessageBox.Show("Ongeldig BoekID.");
                 return;
             }
-            else
-            {                 conn.DeleteBoek(boekenId);
-                MessageBox.Show("Boek is verwijderd.");
-                LoadBoeken();
-            }
+            conn.DeleteBoek(boekenId);
+            MessageBox.Show("Boek is verwijderd.");
+            LoadBoeken();
         }
     }
 }

@@ -38,65 +38,64 @@
             // tbBoekenlijst
             // 
             tbBoekenlijst.FormattingEnabled = true;
-            tbBoekenlijst.Location = new Point(14, 16);
-            tbBoekenlijst.Margin = new Padding(3, 4, 3, 4);
+            tbBoekenlijst.ItemHeight = 15;
+            tbBoekenlijst.Location = new Point(12, 12);
             tbBoekenlijst.Name = "tbBoekenlijst";
-            tbBoekenlijst.Size = new Size(506, 564);
-            tbBoekenlijst.TabIndex = 1;
+            tbBoekenlijst.Size = new Size(443, 424);
+            tbBoekenlijst.TabIndex = 0;
             // 
             // btnAddboek
             // 
-            btnAddboek.Location = new Point(550, 16);
-            btnAddboek.Margin = new Padding(3, 4, 3, 4);
+            btnAddboek.Location = new Point(481, 12);
             btnAddboek.Name = "btnAddboek";
-            btnAddboek.Size = new Size(351, 49);
-            btnAddboek.TabIndex = 2;
+            btnAddboek.Size = new Size(307, 37);
+            btnAddboek.TabIndex = 1;
             btnAddboek.Text = "Voeg boek toe";
             btnAddboek.UseVisualStyleBackColor = true;
             btnAddboek.Click += btnAddboek_Click;
             // 
             // btnRefresh
             // 
-            btnRefresh.Location = new Point(550, 270);
-            btnRefresh.Margin = new Padding(3, 4, 3, 4);
+            btnRefresh.Location = new Point(481, 202);
             btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(81, 67);
-            btnRefresh.TabIndex = 3;
+            btnRefresh.Size = new Size(71, 50);
+            btnRefresh.TabIndex = 4;
             btnRefresh.Text = "Refresh";
             btnRefresh.UseVisualStyleBackColor = true;
             btnRefresh.Click += btnRefresh_Click;
             // 
             // btnBoekUpdaten
             // 
-            btnBoekUpdaten.Location = new Point(550, 97);
+            btnBoekUpdaten.Location = new Point(481, 73);
+            btnBoekUpdaten.Margin = new Padding(3, 2, 3, 2);
             btnBoekUpdaten.Name = "btnBoekUpdaten";
-            btnBoekUpdaten.Size = new Size(351, 49);
-            btnBoekUpdaten.TabIndex = 7;
+            btnBoekUpdaten.Size = new Size(307, 37);
+            btnBoekUpdaten.TabIndex = 2;
             btnBoekUpdaten.Text = "Boek updaten";
             btnBoekUpdaten.UseVisualStyleBackColor = true;
             btnBoekUpdaten.Click += button1_Click;
             // 
             // btnDeleteBoek
             // 
-            btnDeleteBoek.Location = new Point(550, 184);
+            btnDeleteBoek.Location = new Point(481, 138);
+            btnDeleteBoek.Margin = new Padding(3, 2, 3, 2);
             btnDeleteBoek.Name = "btnDeleteBoek";
-            btnDeleteBoek.Size = new Size(351, 49);
-            btnDeleteBoek.TabIndex = 8;
+            btnDeleteBoek.Size = new Size(307, 37);
+            btnDeleteBoek.TabIndex = 3;
             btnDeleteBoek.Text = "Verwijder boek";
             btnDeleteBoek.UseVisualStyleBackColor = true;
             btnDeleteBoek.Click += btnDeleteBoek_Click;
             // 
             // Leeraarscherm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(914, 600);
+            ClientSize = new Size(800, 450);
             Controls.Add(btnDeleteBoek);
             Controls.Add(btnBoekUpdaten);
             Controls.Add(btnRefresh);
             Controls.Add(btnAddboek);
             Controls.Add(tbBoekenlijst);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "Leeraarscherm";
             Text = "Leeraarscherm";
             ResumeLayout(false);

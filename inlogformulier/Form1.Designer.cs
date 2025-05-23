@@ -33,6 +33,7 @@
             label1 = new Label();
             label2 = new Label();
             loginButton = new Button();
+            btnShowPassword = new Button();
             SuspendLayout();
             // 
             // tbEmail
@@ -49,6 +50,17 @@
             tbWachtwoord.Size = new Size(561, 27);
             tbWachtwoord.TabIndex = 1;
             tbWachtwoord.UseSystemPasswordChar = true;
+            // 
+            // btnShowPassword
+            // 
+            btnShowPassword.Location = new Point(tbWachtwoord.Right + 5, tbWachtwoord.Top);
+            btnShowPassword.Size = new Size(40, tbWachtwoord.Height);
+            btnShowPassword.Text = "👁";
+            btnShowPassword.TabIndex = 5;
+            btnShowPassword.UseVisualStyleBackColor = true;
+            btnShowPassword.MouseDown += btnShowPassword_MouseDown;
+            btnShowPassword.MouseUp += btnShowPassword_MouseUp;
+            Controls.Add(btnShowPassword);
             // 
             // label1
             // 
@@ -101,5 +113,6 @@
         private Label label1;
         private Label label2;
         private Button loginButton;
+        private Button btnShowPassword;
     }
 }

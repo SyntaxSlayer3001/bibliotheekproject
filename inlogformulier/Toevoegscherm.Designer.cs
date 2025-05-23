@@ -30,8 +30,6 @@
         {
             tbTitel = new TextBox();
             tbISBN = new TextBox();
-            tbGenreId = new TextBox();
-            tbAuteur = new TextBox();
             tbUitgever = new TextBox();
             tbTaal = new TextBox();
             tbGraad = new TextBox();
@@ -43,6 +41,8 @@
             label5 = new Label();
             label6 = new Label();
             label7 = new Label();
+            comboBoxGenreId = new ComboBox();
+            tbAuteur = new TextBox();
             SuspendLayout();
             // 
             // tbTitel
@@ -58,20 +58,6 @@
             tbISBN.Name = "tbISBN";
             tbISBN.Size = new Size(469, 23);
             tbISBN.TabIndex = 6;
-            // 
-            // tbGenreId
-            // 
-            tbGenreId.Location = new Point(211, 95);
-            tbGenreId.Name = "tbGenreId";
-            tbGenreId.Size = new Size(469, 23);
-            tbGenreId.TabIndex = 1;
-            // 
-            // tbAuteur
-            // 
-            tbAuteur.Location = new Point(211, 140);
-            tbAuteur.Name = "tbAuteur";
-            tbAuteur.Size = new Size(469, 23);
-            tbAuteur.TabIndex = 2;
             // 
             // tbUitgever
             // 
@@ -118,9 +104,9 @@
             label2.AutoSize = true;
             label2.Location = new Point(110, 95);
             label2.Name = "label2";
-            label2.Size = new Size(48, 15);
+            label2.Size = new Size(38, 15);
             label2.TabIndex = 9;
-            label2.Text = "GenreId";
+            label2.Text = "Genre";
             // 
             // label3
             // 
@@ -167,11 +153,28 @@
             label7.TabIndex = 14;
             label7.Text = "ISBN";
             // 
+            // comboBoxGenreId
+            // 
+            comboBoxGenreId.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxGenreId.FormattingEnabled = true;
+            comboBoxGenreId.Location = new Point(211, 95);
+            comboBoxGenreId.Name = "comboBoxGenreId";
+            comboBoxGenreId.Size = new Size(469, 23);
+            comboBoxGenreId.TabIndex = 1;
+            // 
+            // tbAuteur
+            // 
+            tbAuteur.Location = new Point(211, 140);
+            tbAuteur.Name = "tbAuteur";
+            tbAuteur.Size = new Size(469, 23);
+            tbAuteur.TabIndex = 2;
+            // 
             // Toevoegscherm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(comboBoxGenreId);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label5);
@@ -184,7 +187,6 @@
             Controls.Add(tbTaal);
             Controls.Add(tbUitgever);
             Controls.Add(tbAuteur);
-            Controls.Add(tbGenreId);
             Controls.Add(tbISBN);
             Controls.Add(tbTitel);
             Name = "Toevoegscherm";
@@ -197,8 +199,6 @@
 
         private TextBox tbTitel;
         private TextBox tbISBN;
-        private TextBox tbGenreId;
-        private TextBox tbAuteur;
         private TextBox tbUitgever;
         private TextBox tbTaal;
         private TextBox tbGraad;
@@ -210,5 +210,7 @@
         private Label label5;
         private Label label6;
         private Label label7;
+        private ComboBox comboBoxGenreId;
+        private TextBox tbAuteur;
     }
 }

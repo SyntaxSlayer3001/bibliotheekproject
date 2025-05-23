@@ -32,7 +32,6 @@
             tbTitelUpdate = new TextBox();
             btnUpdateBoek = new Button();
             label2 = new Label();
-            tbGenreIDUpdate = new TextBox();
             label3 = new Label();
             tbAuteurUpdate = new TextBox();
             label4 = new Label();
@@ -43,30 +42,33 @@
             tbGraadUpdate = new TextBox();
             label7 = new Label();
             tbISBNUpdate = new TextBox();
+            comboBoxUpdateGenre = new ComboBox();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(61, 33);
+            label1.Location = new Point(53, 25);
             label1.Name = "label1";
-            label1.Size = new Size(38, 20);
+            label1.Size = new Size(30, 15);
             label1.TabIndex = 0;
             label1.Text = "Titel";
             // 
             // tbTitelUpdate
             // 
-            tbTitelUpdate.Location = new Point(187, 33);
+            tbTitelUpdate.Location = new Point(164, 25);
+            tbTitelUpdate.Margin = new Padding(3, 2, 3, 2);
             tbTitelUpdate.Name = "tbTitelUpdate";
-            tbTitelUpdate.Size = new Size(567, 27);
-            tbTitelUpdate.TabIndex = 1;
+            tbTitelUpdate.Size = new Size(497, 23);
+            tbTitelUpdate.TabIndex = 0;
             // 
             // btnUpdateBoek
             // 
-            btnUpdateBoek.Location = new Point(12, 362);
+            btnUpdateBoek.Location = new Point(10, 272);
+            btnUpdateBoek.Margin = new Padding(3, 2, 3, 2);
             btnUpdateBoek.Name = "btnUpdateBoek";
-            btnUpdateBoek.Size = new Size(756, 52);
-            btnUpdateBoek.TabIndex = 2;
+            btnUpdateBoek.Size = new Size(662, 39);
+            btnUpdateBoek.TabIndex = 7;
             btnUpdateBoek.Text = "Update boek";
             btnUpdateBoek.UseVisualStyleBackColor = true;
             btnUpdateBoek.Click += btnUpdateBoek_Click;
@@ -74,104 +76,112 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(61, 79);
+            label2.Location = new Point(53, 59);
             label2.Name = "label2";
-            label2.Size = new Size(63, 20);
+            label2.Size = new Size(38, 15);
             label2.TabIndex = 3;
-            label2.Text = "GenreID";
-            // 
-            // tbGenreIDUpdate
-            // 
-            tbGenreIDUpdate.Location = new Point(187, 79);
-            tbGenreIDUpdate.Name = "tbGenreIDUpdate";
-            tbGenreIDUpdate.Size = new Size(567, 27);
-            tbGenreIDUpdate.TabIndex = 4;
+            label2.Text = "Genre";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(61, 122);
+            label3.Location = new Point(53, 92);
             label3.Name = "label3";
-            label3.Size = new Size(53, 20);
+            label3.Size = new Size(43, 15);
             label3.TabIndex = 5;
             label3.Text = "Auteur";
             // 
             // tbAuteurUpdate
             // 
-            tbAuteurUpdate.Location = new Point(187, 122);
+            tbAuteurUpdate.Location = new Point(164, 92);
+            tbAuteurUpdate.Margin = new Padding(3, 2, 3, 2);
             tbAuteurUpdate.Name = "tbAuteurUpdate";
-            tbAuteurUpdate.Size = new Size(567, 27);
-            tbAuteurUpdate.TabIndex = 6;
+            tbAuteurUpdate.Size = new Size(497, 23);
+            tbAuteurUpdate.TabIndex = 2;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(61, 166);
+            label4.Location = new Point(53, 124);
             label4.Name = "label4";
-            label4.Size = new Size(65, 20);
+            label4.Size = new Size(51, 15);
             label4.TabIndex = 7;
             label4.Text = "Uitgever";
             // 
             // tbUitgeverUpdate
             // 
-            tbUitgeverUpdate.Location = new Point(187, 166);
+            tbUitgeverUpdate.Location = new Point(164, 124);
+            tbUitgeverUpdate.Margin = new Padding(3, 2, 3, 2);
             tbUitgeverUpdate.Name = "tbUitgeverUpdate";
-            tbUitgeverUpdate.Size = new Size(567, 27);
-            tbUitgeverUpdate.TabIndex = 8;
+            tbUitgeverUpdate.Size = new Size(497, 23);
+            tbUitgeverUpdate.TabIndex = 3;
             // 
             // tbTaalUpdate
             // 
-            tbTaalUpdate.Location = new Point(187, 221);
+            tbTaalUpdate.Location = new Point(164, 166);
+            tbTaalUpdate.Margin = new Padding(3, 2, 3, 2);
             tbTaalUpdate.Name = "tbTaalUpdate";
-            tbTaalUpdate.Size = new Size(567, 27);
-            tbTaalUpdate.TabIndex = 9;
+            tbTaalUpdate.Size = new Size(497, 23);
+            tbTaalUpdate.TabIndex = 4;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(61, 221);
+            label5.Location = new Point(53, 166);
             label5.Name = "label5";
-            label5.Size = new Size(35, 20);
+            label5.Size = new Size(28, 15);
             label5.TabIndex = 10;
             label5.Text = "Taal";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(61, 269);
+            label6.Location = new Point(53, 202);
             label6.Name = "label6";
-            label6.Size = new Size(49, 20);
+            label6.Size = new Size(38, 15);
             label6.TabIndex = 11;
             label6.Text = "Graad";
             // 
             // tbGraadUpdate
             // 
-            tbGraadUpdate.Location = new Point(187, 269);
+            tbGraadUpdate.Location = new Point(164, 202);
+            tbGraadUpdate.Margin = new Padding(3, 2, 3, 2);
             tbGraadUpdate.Name = "tbGraadUpdate";
-            tbGraadUpdate.Size = new Size(567, 27);
-            tbGraadUpdate.TabIndex = 12;
+            tbGraadUpdate.Size = new Size(497, 23);
+            tbGraadUpdate.TabIndex = 5;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(61, 315);
+            label7.Location = new Point(53, 236);
             label7.Name = "label7";
-            label7.Size = new Size(41, 20);
+            label7.Size = new Size(32, 15);
             label7.TabIndex = 13;
             label7.Text = "ISBN";
             // 
             // tbISBNUpdate
             // 
-            tbISBNUpdate.Location = new Point(187, 315);
+            tbISBNUpdate.Location = new Point(164, 236);
+            tbISBNUpdate.Margin = new Padding(3, 2, 3, 2);
             tbISBNUpdate.Name = "tbISBNUpdate";
-            tbISBNUpdate.Size = new Size(567, 27);
-            tbISBNUpdate.TabIndex = 14;
+            tbISBNUpdate.Size = new Size(497, 23);
+            tbISBNUpdate.TabIndex = 6;
+            // 
+            // comboBoxUpdateGenre
+            // 
+            comboBoxUpdateGenre.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxUpdateGenre.FormattingEnabled = true;
+            comboBoxUpdateGenre.Location = new Point(164, 59);
+            comboBoxUpdateGenre.Name = "comboBoxUpdateGenre";
+            comboBoxUpdateGenre.Size = new Size(497, 23);
+            comboBoxUpdateGenre.TabIndex = 1;
             // 
             // UpdateBoek
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(700, 338);
+            Controls.Add(comboBoxUpdateGenre);
             Controls.Add(tbISBNUpdate);
             Controls.Add(label7);
             Controls.Add(tbGraadUpdate);
@@ -182,11 +192,11 @@
             Controls.Add(label4);
             Controls.Add(tbAuteurUpdate);
             Controls.Add(label3);
-            Controls.Add(tbGenreIDUpdate);
             Controls.Add(label2);
             Controls.Add(btnUpdateBoek);
             Controls.Add(tbTitelUpdate);
             Controls.Add(label1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "UpdateBoek";
             Text = "UpdateBoek";
             ResumeLayout(false);
@@ -199,7 +209,6 @@
         private TextBox tbTitelUpdate;
         private Button btnUpdateBoek;
         private Label label2;
-        private TextBox tbGenreIDUpdate;
         private Label label3;
         private TextBox tbAuteurUpdate;
         private Label label4;
@@ -210,5 +219,6 @@
         private TextBox tbGraadUpdate;
         private Label label7;
         private TextBox tbISBNUpdate;
+        private ComboBox comboBoxUpdateGenre;
     }
 }
