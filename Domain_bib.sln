@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain_bib", "Domain_bib\Domain_bib.csproj", "{A86D6EB3-AB09-4A23-BF6B-D7511C1431FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "inlogformulier", "inlogformulier\inlogformulier.csproj", "{2DE6243D-4DCC-41A3-9542-4E595A70202F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A86D6EB3-AB09-4A23-BF6B-D7511C1431FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A86D6EB3-AB09-4A23-BF6B-D7511C1431FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A86D6EB3-AB09-4A23-BF6B-D7511C1431FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A86D6EB3-AB09-4A23-BF6B-D7511C1431FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DE6243D-4DCC-41A3-9542-4E595A70202F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DE6243D-4DCC-41A3-9542-4E595A70202F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DE6243D-4DCC-41A3-9542-4E595A70202F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DE6243D-4DCC-41A3-9542-4E595A70202F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8EE1EAA-4310-4A2A-A0C7-37E504199619}
+	EndGlobalSection
+EndGlobal
