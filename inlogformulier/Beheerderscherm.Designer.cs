@@ -34,22 +34,26 @@
             btnRefresh = new Button();
             button1 = new Button();
             btnDeleteBoek = new Button();
+            btnDeleteUser = new Button();
+            btnUpdateUser = new Button();
+            listBoxGebruikers = new ListBox();
             SuspendLayout();
             // 
             // tbBoekenlijst
             // 
             tbBoekenlijst.FormattingEnabled = true;
-            tbBoekenlijst.ItemHeight = 15;
-            tbBoekenlijst.Location = new Point(12, 12);
+            tbBoekenlijst.Location = new Point(14, 16);
+            tbBoekenlijst.Margin = new Padding(3, 4, 3, 4);
             tbBoekenlijst.Name = "tbBoekenlijst";
-            tbBoekenlijst.Size = new Size(443, 424);
+            tbBoekenlijst.Size = new Size(506, 564);
             tbBoekenlijst.TabIndex = 0;
             // 
             // btnAddboek
             // 
-            btnAddboek.Location = new Point(481, 12);
+            btnAddboek.Location = new Point(947, 25);
+            btnAddboek.Margin = new Padding(3, 4, 3, 4);
             btnAddboek.Name = "btnAddboek";
-            btnAddboek.Size = new Size(307, 37);
+            btnAddboek.Size = new Size(351, 49);
             btnAddboek.TabIndex = 1;
             btnAddboek.Text = "Voeg boek toe";
             btnAddboek.UseVisualStyleBackColor = true;
@@ -57,19 +61,21 @@
             // 
             // btnAddUser
             // 
-            btnAddUser.Location = new Point(481, 73);
+            btnAddUser.Location = new Point(947, 296);
+            btnAddUser.Margin = new Padding(3, 4, 3, 4);
             btnAddUser.Name = "btnAddUser";
-            btnAddUser.Size = new Size(307, 37);
-            btnAddUser.TabIndex = 2;
+            btnAddUser.Size = new Size(351, 49);
+            btnAddUser.TabIndex = 4;
             btnAddUser.Text = "Voeg een gebruiker toe";
             btnAddUser.UseVisualStyleBackColor = true;
             btnAddUser.Click += btnAddUser_Click;
             // 
             // btnRefresh
             // 
-            btnRefresh.Location = new Point(481, 253);
+            btnRefresh.Location = new Point(947, 538);
+            btnRefresh.Margin = new Padding(3, 4, 3, 4);
             btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(71, 50);
+            btnRefresh.Size = new Size(351, 49);
             btnRefresh.TabIndex = 5;
             btnRefresh.Text = "Refresh";
             btnRefresh.UseVisualStyleBackColor = true;
@@ -77,37 +83,67 @@
             // 
             // button1
             // 
-            button1.Location = new Point(481, 132);
-            button1.Margin = new Padding(3, 2, 3, 2);
+            button1.Location = new Point(947, 113);
             button1.Name = "button1";
-            button1.Size = new Size(307, 37);
-            button1.TabIndex = 3;
+            button1.Size = new Size(351, 49);
+            button1.TabIndex = 2;
             button1.Text = "Boek updaten";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
             // btnDeleteBoek
             // 
-            btnDeleteBoek.Location = new Point(481, 196);
-            btnDeleteBoek.Margin = new Padding(3, 2, 3, 2);
+            btnDeleteBoek.Location = new Point(947, 202);
             btnDeleteBoek.Name = "btnDeleteBoek";
-            btnDeleteBoek.Size = new Size(307, 37);
-            btnDeleteBoek.TabIndex = 4;
+            btnDeleteBoek.Size = new Size(351, 49);
+            btnDeleteBoek.TabIndex = 3;
             btnDeleteBoek.Text = "Verwijder boek";
             btnDeleteBoek.UseVisualStyleBackColor = true;
             btnDeleteBoek.Click += btnDeleteBoek_Click;
             // 
+            // btnDeleteUser
+            // 
+            btnDeleteUser.Location = new Point(947, 465);
+            btnDeleteUser.Name = "btnDeleteUser";
+            btnDeleteUser.Size = new Size(351, 49);
+            btnDeleteUser.TabIndex = 6;
+            btnDeleteUser.Text = "Verwijder een gebruiker";
+            btnDeleteUser.UseVisualStyleBackColor = true;
+            btnDeleteUser.Click += btnDeleteUser_Click;
+            // 
+            // btnUpdateUser
+            // 
+            btnUpdateUser.Location = new Point(947, 389);
+            btnUpdateUser.Name = "btnUpdateUser";
+            btnUpdateUser.Size = new Size(351, 49);
+            btnUpdateUser.TabIndex = 5;
+            btnUpdateUser.Text = "Update een gebruiker";
+            btnUpdateUser.UseVisualStyleBackColor = true;
+            btnUpdateUser.Click += btnUpdateUser_Click;
+            // 
+            // listBoxGebruikers
+            // 
+            listBoxGebruikers.FormattingEnabled = true;
+            listBoxGebruikers.Location = new Point(536, 16);
+            listBoxGebruikers.Name = "listBoxGebruikers";
+            listBoxGebruikers.Size = new Size(387, 564);
+            listBoxGebruikers.TabIndex = 7;
+            // 
             // Beheerderscherm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1328, 600);
+            Controls.Add(listBoxGebruikers);
+            Controls.Add(btnUpdateUser);
+            Controls.Add(btnDeleteUser);
             Controls.Add(btnDeleteBoek);
             Controls.Add(button1);
             Controls.Add(btnRefresh);
             Controls.Add(btnAddUser);
             Controls.Add(btnAddboek);
             Controls.Add(tbBoekenlijst);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Beheerderscherm";
             Text = "Beheerderscherm";
             ResumeLayout(false);
@@ -121,5 +157,8 @@
         private Button btnRefresh;
         private Button button1;
         private Button btnDeleteBoek;
+        private Button btnDeleteUser;
+        private Button btnUpdateUser;
+        private ListBox listBoxGebruikers;
     }
 }

@@ -23,7 +23,7 @@ namespace inlogformulier
         /// Controller instance for business logic operations.
         /// </summary>
         Controller conn = new Controller();
-
+        private List<Boek> boekenlijst = new();
         /// <summary>
         /// Initializes a new instance of the <see cref="Leeraarscherm"/> class.
         /// Loads the list of books on startup.
@@ -32,6 +32,7 @@ namespace inlogformulier
         {
             InitializeComponent();
             LoadBoeken();
+            tbZoekTitel.TextChanged += tbZoekTitel_TextChanged;
         }
 
         /// <summary>
@@ -40,11 +41,15 @@ namespace inlogformulier
         private void LoadBoeken()
         {
             var mapper = new Boekmapper();
-            var boekenlijst = mapper.GetBoeken();
+            boekenlijst = mapper.GetBoeken(); // let op: geen 'var'!
+            UpdateListBox(boekenlijst);
+        }
+        private void UpdateListBox(IEnumerable<Boek> boeken)
+        {
             tbBoekenlijst.Items.Clear();
-            foreach (var boeken in boekenlijst)
+            foreach (var boek in boeken)
             {
-                tbBoekenlijst.Items.Add(boeken); // ToString() wordt automatisch gebruikt
+                tbBoekenlijst.Items.Add(boek);
             }
         }
 
@@ -98,6 +103,15 @@ namespace inlogformulier
                 MessageBox.Show("Boek is verwijderd.");
                 LoadBoeken();
             }
+        }
+
+        private void tbZoekTitel_TextChanged(object sender, EventArgs e)
+        {
+            string zoekterm = tbZoekTitel.Text.Trim().ToLower();
+            var gefilterd = boekenlijst
+                .Where(b => b.Titel != null && b.Titel.ToLower().Contains(zoekterm))
+                .ToList();
+            UpdateListBox(gefilterd);
         }
     }
 }

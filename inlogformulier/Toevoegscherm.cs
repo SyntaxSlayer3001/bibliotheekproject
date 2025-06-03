@@ -31,6 +31,7 @@ namespace inlogformulier
         {
             InitializeComponent();
             LoadGenres();
+            LoadTalen();
         }
 
         /// <summary>
@@ -44,7 +45,7 @@ namespace inlogformulier
             int selectedGenreId = (int)comboBoxGenreId.SelectedValue;
             string Auteur = tbAuteur.Text;
             string Uitgever = tbUitgever.Text;
-            string Taal = tbTaal.Text;
+            int TaalId = (int)comboBoxTaalId.SelectedValue;
             int graad;
             if (!int.TryParse(tbGraad.Text, out graad))
             {
@@ -53,7 +54,7 @@ namespace inlogformulier
             }
             string isbn = tbISBN.Text;
 
-            conn.InsertBoek(Titel, GenreId, Auteur, Uitgever, Taal, graad, isbn);
+            conn.InsertBoek(Titel, GenreId, Auteur, Uitgever, TaalId, graad, isbn);
 
             MessageBox.Show("Boek is toegevoegd");
 
@@ -61,7 +62,7 @@ namespace inlogformulier
             comboBoxGenreId.SelectedIndex = -1;
             tbAuteur.Clear();
             tbUitgever.Clear();
-            tbTaal.Clear();
+            comboBoxTaalId.SelectedValue = -1;
             tbGraad.Clear();
             tbISBN.Clear();
         }
@@ -99,21 +100,55 @@ namespace inlogformulier
             comboBoxGenreId.DisplayMember = "Name";
             comboBoxGenreId.ValueMember = "Id";
         }
-    }
 
-    /// <summary>
-    /// Represents a genre with an ID and a name.
-    /// </summary>
-    public class Genre
-    {
-        /// <summary>
-        /// Gets or sets the ID of the genre.
-        /// </summary>
-        public int Id { get; set; }
 
+        private void LoadTalen()
+        {
+            string connectionString = "server=localhost;user=root;database=eindprojectbibliotheek;port=3306;password=1234";
+            var talen = new List<Taal>();
+
+            using (var conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT TaalID, TaalNaam FROM tbltaal";
+                using (var cmd = new MySqlCommand(query, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        talen.Add(new Taal
+                        {
+                            Id = reader.GetInt32("TaalID"),
+                            Name = reader.GetString("TaalNaam")
+                        });
+                    }
+                }
+            }
+
+            comboBoxTaalId.DataSource = talen;
+            comboBoxTaalId.DisplayMember = "Name";
+            comboBoxTaalId.ValueMember = "Id";
+        }
         /// <summary>
-        /// Gets or sets the name of the genre.
+        /// Represents a genre with an ID and a name.
         /// </summary>
-        public string Name { get; set; }
+        public class Genre
+        {
+            /// <summary>
+            /// Gets or sets the ID of the genre.
+            /// </summary>
+            public int Id { get; set; }
+
+            /// <summary>
+            /// Gets or sets the name of the genre.
+            /// </summary>
+            public string Name { get; set; }
+        }
+        public class Taal
+        {
+            public int Id { get; set; }
+
+            public string Name { get; set; }
+        }
     }
 }

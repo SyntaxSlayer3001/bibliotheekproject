@@ -54,12 +54,12 @@ namespace Domain_bib.Business
         /// <param name="genreId">The genre ID.</param>
         /// <param name="auteur">The author of the book.</param>
         /// <param name="uitgever">The publisher of the book.</param>
-        /// <param name="taal">The language of the book.</param>
+        /// <param name="taalId">The language of the book.</param>
         /// <param name="graad">The grade of the book.</param>
         /// <param name="isbn">The ISBN of the book.</param>
-        public void InsertBoek(string titel, int genreId, string auteur, string uitgever, string taal, int graad, string isbn)
+        public void InsertBoek(string titel, int genreId, string auteur, string uitgever, int taalId, int graad, string isbn)
         {
-            _bibliotheek.InsertBoek(titel, genreId, auteur, uitgever, taal, graad, isbn);
+            _bibliotheek.InsertBoek(titel, genreId, auteur, uitgever, taalId, graad, isbn);
             _boekenlijst = _bibliotheek.GetBoeken();
         }
 
@@ -76,6 +76,16 @@ namespace Domain_bib.Business
             _bibliotheek.InsertGebruiker(email, naam, voornaam, wachtwoord, rechtId);
         }
 
+        public void UpdateGebruiker(int gebruikerId, string email, string naam, string voornaam, string wachtwoord, int rechtId)
+        {
+            _bibliotheek.UpdateGebruiker(gebruikerId, email, naam, voornaam, wachtwoord, rechtId);
+        }
+
+        public void DeleteGebruiker(int gebruikerId)
+        {
+            _bibliotheek.DeleteGebruiker(gebruikerId);
+        }
+
         /// <summary>
         /// Updates an existing book in the library.
         /// </summary>
@@ -87,7 +97,7 @@ namespace Domain_bib.Business
         /// <param name="taal">The language of the book.</param>
         /// <param name="graad">The grade of the book.</param>
         /// <param name="isbn">The ISBN of the book.</param>
-        public void UpdateBoek(int boekenId, string titel, int genreId, string auteur, string uitgever, string taal, int graad, string isbn)
+        public void UpdateBoek(int boekenId, string titel, int genreId, string auteur, string uitgever, int taal, int graad, string isbn)
         {
             _bibliotheek.UpdateBoek(boekenId, titel, genreId, auteur, uitgever, taal, graad, isbn);
         }
@@ -100,6 +110,11 @@ namespace Domain_bib.Business
         {
             _bibliotheek.DeleteBoek(boekenId);
             _boekenlijst = _bibliotheek.GetBoeken();
+        }
+
+        public List<Gebruiker> GetGebruikers()
+        {
+            return _bibliotheek.GetGebruikers();
         }
     }
 }

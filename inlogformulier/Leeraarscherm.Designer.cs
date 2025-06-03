@@ -33,22 +33,25 @@
             btnRefresh = new Button();
             btnBoekUpdaten = new Button();
             btnDeleteBoek = new Button();
+            tbZoekTitel = new TextBox();
+            label1 = new Label();
             SuspendLayout();
             // 
             // tbBoekenlijst
             // 
             tbBoekenlijst.FormattingEnabled = true;
-            tbBoekenlijst.ItemHeight = 15;
-            tbBoekenlijst.Location = new Point(12, 12);
+            tbBoekenlijst.Location = new Point(14, 16);
+            tbBoekenlijst.Margin = new Padding(3, 4, 3, 4);
             tbBoekenlijst.Name = "tbBoekenlijst";
-            tbBoekenlijst.Size = new Size(443, 424);
+            tbBoekenlijst.Size = new Size(506, 564);
             tbBoekenlijst.TabIndex = 0;
             // 
             // btnAddboek
             // 
-            btnAddboek.Location = new Point(481, 12);
+            btnAddboek.Location = new Point(550, 16);
+            btnAddboek.Margin = new Padding(3, 4, 3, 4);
             btnAddboek.Name = "btnAddboek";
-            btnAddboek.Size = new Size(307, 37);
+            btnAddboek.Size = new Size(351, 49);
             btnAddboek.TabIndex = 1;
             btnAddboek.Text = "Voeg boek toe";
             btnAddboek.UseVisualStyleBackColor = true;
@@ -56,9 +59,10 @@
             // 
             // btnRefresh
             // 
-            btnRefresh.Location = new Point(481, 202);
+            btnRefresh.Location = new Point(550, 317);
+            btnRefresh.Margin = new Padding(3, 4, 3, 4);
             btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(71, 50);
+            btnRefresh.Size = new Size(81, 67);
             btnRefresh.TabIndex = 4;
             btnRefresh.Text = "Refresh";
             btnRefresh.UseVisualStyleBackColor = true;
@@ -66,10 +70,9 @@
             // 
             // btnBoekUpdaten
             // 
-            btnBoekUpdaten.Location = new Point(481, 73);
-            btnBoekUpdaten.Margin = new Padding(3, 2, 3, 2);
+            btnBoekUpdaten.Location = new Point(550, 97);
             btnBoekUpdaten.Name = "btnBoekUpdaten";
-            btnBoekUpdaten.Size = new Size(307, 37);
+            btnBoekUpdaten.Size = new Size(351, 49);
             btnBoekUpdaten.TabIndex = 2;
             btnBoekUpdaten.Text = "Boek updaten";
             btnBoekUpdaten.UseVisualStyleBackColor = true;
@@ -77,28 +80,49 @@
             // 
             // btnDeleteBoek
             // 
-            btnDeleteBoek.Location = new Point(481, 138);
-            btnDeleteBoek.Margin = new Padding(3, 2, 3, 2);
+            btnDeleteBoek.Location = new Point(550, 184);
             btnDeleteBoek.Name = "btnDeleteBoek";
-            btnDeleteBoek.Size = new Size(307, 37);
+            btnDeleteBoek.Size = new Size(351, 49);
             btnDeleteBoek.TabIndex = 3;
             btnDeleteBoek.Text = "Verwijder boek";
             btnDeleteBoek.UseVisualStyleBackColor = true;
             btnDeleteBoek.Click += btnDeleteBoek_Click;
             // 
+            // tbZoekTitel
+            // 
+            tbZoekTitel.Location = new Point(700, 259);
+            tbZoekTitel.Margin = new Padding(3, 4, 3, 4);
+            tbZoekTitel.Name = "tbZoekTitel";
+            tbZoekTitel.Size = new Size(202, 27);
+            tbZoekTitel.TabIndex = 5;
+            tbZoekTitel.TextChanged += tbZoekTitel_TextChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(550, 259);
+            label1.Name = "label1";
+            label1.Size = new Size(110, 20);
+            label1.TabIndex = 6;
+            label1.Text = "Zoeken op titel";
+            // 
             // Leeraarscherm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(914, 600);
+            Controls.Add(label1);
+            Controls.Add(tbZoekTitel);
             Controls.Add(btnDeleteBoek);
             Controls.Add(btnBoekUpdaten);
             Controls.Add(btnRefresh);
             Controls.Add(btnAddboek);
             Controls.Add(tbBoekenlijst);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Leeraarscherm";
             Text = "Leeraarscherm";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -108,5 +132,7 @@
         private Button btnRefresh;
         private Button btnBoekUpdaten;
         private Button btnDeleteBoek;
+        private TextBox tbZoekTitel;
+        private Label label1;
     }
 }

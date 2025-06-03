@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static inlogformulier.Toevoegscherm;
 
 namespace inlogformulier
 {
@@ -34,7 +35,9 @@ namespace inlogformulier
         {
             InitializeComponent();
             _boekenId = boekenId;
-            this.Load += UpdateBoek_Load;
+            LoadGenres();
+            LoadTalen();
+            //this.Load += UpdateBoek_Load;
         }
         
         /// <summary>
@@ -53,7 +56,7 @@ namespace inlogformulier
             int genreId = (int)comboBoxUpdateGenre.SelectedValue;
             string auteur = tbAuteurUpdate.Text.Trim();
             string uitgever = tbUitgeverUpdate.Text.Trim();
-            string taal = tbTaalUpdate.Text.Trim();
+            int taal = (int)comboBoxUpdateTaal.SelectedValue;
             int graad = int.TryParse(tbGraadUpdate.Text, out int graadId) ? graadId : 0;
             string isbn = tbISBNUpdate.Text.Trim();
 
@@ -67,7 +70,7 @@ namespace inlogformulier
             tbGraadUpdate.Clear();
             tbISBNUpdate.Clear();
             tbTitelUpdate.Clear();
-            tbTaalUpdate.Clear();
+            comboBoxUpdateTaal.SelectedIndex = -1;
             tbUitgeverUpdate.Clear();
         }
 
@@ -75,10 +78,11 @@ namespace inlogformulier
         /// Retrieves the list of genres from the database.
         /// </summary>
         /// <returns>A list of genres.</returns>
-        private List<Genre> GetGenres()
+        private void LoadGenres()
         {
-            var genres = new List<Genre>();
             string connectionString = "server=localhost;user=root;database=eindprojectbibliotheek;port=3306;password=1234";
+            var genres = new List<Genre>();
+
             using (var conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
@@ -96,19 +100,49 @@ namespace inlogformulier
                     }
                 }
             }
-            return genres;
-        }
 
+            comboBoxUpdateGenre.DataSource = genres;
+            comboBoxUpdateGenre.DisplayMember = "Name";
+            comboBoxUpdateGenre.ValueMember = "Id";
+        }
+        private void LoadTalen()
+        {
+            string connectionString = "server=localhost;user=root;database=eindprojectbibliotheek;port=3306;password=1234";
+            var talen = new List<Taal>();
+
+            using (var conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT TaalID, TaalNaam FROM tbltaal";
+                using (var cmd = new MySqlCommand(query, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        talen.Add(new Taal
+                        {
+                            Id = reader.GetInt32("TaalID"),
+                            Name = reader.GetString("TaalNaam")
+                        });
+                    }
+                }
+            }
+
+            comboBoxUpdateTaal.DataSource = talen;
+            comboBoxUpdateTaal.DisplayMember = "Name";
+            comboBoxUpdateTaal.ValueMember = "Id";
+        }
         /// <summary>
         /// Handles the Load event for the UpdateBoek form.
         /// Configures the genre ComboBox to display genres retrieved from the database.
         /// </summary>
-        private void UpdateBoek_Load(object sender, EventArgs e)
-        {
-            comboBoxUpdateGenre.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxUpdateGenre.DataSource = GetGenres();
-            comboBoxUpdateGenre.DisplayMember = "Name";
-            comboBoxUpdateGenre.ValueMember = "Id";
-        }
+        //private void UpdateBoek_Load(object sender, EventArgs e)
+        //{
+        //    comboBoxUpdateGenre.DropDownStyle = ComboBoxStyle.DropDownList;
+        //    comboBoxUpdateGenre.DataSource = LoadGenres();
+        //    comboBoxUpdateGenre.DisplayMember = "Name";
+        //    comboBoxUpdateGenre.ValueMember = "Id";
+        //}
     }
+
 }
