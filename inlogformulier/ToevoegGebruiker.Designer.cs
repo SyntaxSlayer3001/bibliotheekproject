@@ -38,7 +38,7 @@
             label4 = new Label();
             tbVoornaam = new TextBox();
             label5 = new Label();
-            tbRechtID = new TextBox();
+            comboBoxRechtId = new ComboBox();
             SuspendLayout();
             // 
             // label1
@@ -129,20 +129,21 @@
             label5.TabIndex = 9;
             label5.Text = "RechtID";
             // 
-            // tbRechtID
+            // comboBoxRechtId
             // 
-            tbRechtID.Location = new Point(251, 215);
-            tbRechtID.Margin = new Padding(3, 4, 3, 4);
-            tbRechtID.Name = "tbRechtID";
-            tbRechtID.Size = new Size(525, 27);
-            tbRechtID.TabIndex = 3;
+            comboBoxRechtId.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxRechtId.FormattingEnabled = true;
+            comboBoxRechtId.Location = new Point(251, 215);
+            comboBoxRechtId.Name = "comboBoxRechtId";
+            comboBoxRechtId.Size = new Size(525, 28);
+            comboBoxRechtId.TabIndex = 3;
             // 
             // ToevoegGebruiker
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(914, 600);
-            Controls.Add(tbRechtID);
+            Controls.Add(comboBoxRechtId);
             Controls.Add(label5);
             Controls.Add(tbVoornaam);
             Controls.Add(label4);
@@ -172,6 +173,6 @@
         private Label label4;
         private TextBox tbVoornaam;
         private Label label5;
-        private TextBox tbRechtID;
+        private ComboBox comboBoxRechtId;
     }
 }

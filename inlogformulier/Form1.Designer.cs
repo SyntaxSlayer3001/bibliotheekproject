@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             tbEmail = new TextBox();
             tbWachtwoord = new TextBox();
             label1 = new Label();
@@ -50,17 +51,6 @@
             tbWachtwoord.Size = new Size(561, 27);
             tbWachtwoord.TabIndex = 1;
             tbWachtwoord.UseSystemPasswordChar = true;
-            // 
-            // btnShowPassword
-            // 
-            btnShowPassword.Location = new Point(tbWachtwoord.Right + 5, tbWachtwoord.Top);
-            btnShowPassword.Size = new Size(40, tbWachtwoord.Height);
-            btnShowPassword.Text = "👁";
-            btnShowPassword.TabIndex = 5;
-            btnShowPassword.UseVisualStyleBackColor = true;
-            btnShowPassword.MouseDown += btnShowPassword_MouseDown;
-            btnShowPassword.MouseUp += btnShowPassword_MouseUp;
-            Controls.Add(btnShowPassword);
             // 
             // label1
             // 
@@ -90,11 +80,25 @@
             loginButton.UseVisualStyleBackColor = true;
             loginButton.Click += loginButton_Click;
             // 
+            // btnShowPassword
+            // 
+            btnShowPassword.Location = new Point(723, 175);
+            btnShowPassword.Name = "btnShowPassword";
+            btnShowPassword.Size = new Size(40, 27);
+            btnShowPassword.TabIndex = 5;
+            btnShowPassword.Text = "👁";
+            btnShowPassword.UseVisualStyleBackColor = true;
+            btnShowPassword.MouseDown += btnShowPassword_MouseDown;
+            btnShowPassword.MouseUp += btnShowPassword_MouseUp;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 451);
+            Controls.Add(btnShowPassword);
             Controls.Add(loginButton);
             Controls.Add(label2);
             Controls.Add(label1);

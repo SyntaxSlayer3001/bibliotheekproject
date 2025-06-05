@@ -113,5 +113,14 @@ namespace inlogformulier
                 .ToList();
             UpdateListBox(gefilterd);
         }
+        ///<summary>
+        /// Handles the click event for the "Uitloggen" button.
+        /// Opent het inlogformulier en sluit het huidige scherm.
+        private void btnUitloggen_Click(object sender, EventArgs e)
+        {
+            Form form = new Form1();
+            form.Show();
+            this.Close();
+        }
     }
 }

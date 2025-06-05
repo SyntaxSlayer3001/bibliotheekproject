@@ -141,7 +141,7 @@ namespace Domain_bib.Business
         /// <returns>A string containing the book ID, title, and author.</returns>
         public override string ToString()
         {
-            return $"{_boekenId}: , Titel: {_titel}, Auteur: {_auteur}";
+            return $"{_boekenId}: Titel: {_titel}, Auteur: {_auteur}";
         }
     }
 }

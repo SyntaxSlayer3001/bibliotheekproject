@@ -37,6 +37,7 @@
             btnDeleteUser = new Button();
             btnUpdateUser = new Button();
             listBoxGebruikers = new ListBox();
+            btnUitloggen = new Button();
             SuspendLayout();
             // 
             // tbBoekenlijst
@@ -45,12 +46,12 @@
             tbBoekenlijst.Location = new Point(14, 16);
             tbBoekenlijst.Margin = new Padding(3, 4, 3, 4);
             tbBoekenlijst.Name = "tbBoekenlijst";
-            tbBoekenlijst.Size = new Size(506, 564);
+            tbBoekenlijst.Size = new Size(390, 564);
             tbBoekenlijst.TabIndex = 0;
             // 
             // btnAddboek
             // 
-            btnAddboek.Location = new Point(947, 25);
+            btnAddboek.Location = new Point(859, 16);
             btnAddboek.Margin = new Padding(3, 4, 3, 4);
             btnAddboek.Name = "btnAddboek";
             btnAddboek.Size = new Size(351, 49);
@@ -61,7 +62,7 @@
             // 
             // btnAddUser
             // 
-            btnAddUser.Location = new Point(947, 296);
+            btnAddUser.Location = new Point(859, 286);
             btnAddUser.Margin = new Padding(3, 4, 3, 4);
             btnAddUser.Name = "btnAddUser";
             btnAddUser.Size = new Size(351, 49);
@@ -72,7 +73,7 @@
             // 
             // btnRefresh
             // 
-            btnRefresh.Location = new Point(947, 538);
+            btnRefresh.Location = new Point(859, 538);
             btnRefresh.Margin = new Padding(3, 4, 3, 4);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(351, 49);
@@ -83,17 +84,17 @@
             // 
             // button1
             // 
-            button1.Location = new Point(947, 113);
+            button1.Location = new Point(859, 104);
             button1.Name = "button1";
             button1.Size = new Size(351, 49);
             button1.TabIndex = 2;
             button1.Text = "Boek updaten";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+         
             // 
             // btnDeleteBoek
             // 
-            btnDeleteBoek.Location = new Point(947, 202);
+            btnDeleteBoek.Location = new Point(859, 198);
             btnDeleteBoek.Name = "btnDeleteBoek";
             btnDeleteBoek.Size = new Size(351, 49);
             btnDeleteBoek.TabIndex = 3;
@@ -103,7 +104,7 @@
             // 
             // btnDeleteUser
             // 
-            btnDeleteUser.Location = new Point(947, 465);
+            btnDeleteUser.Location = new Point(859, 455);
             btnDeleteUser.Name = "btnDeleteUser";
             btnDeleteUser.Size = new Size(351, 49);
             btnDeleteUser.TabIndex = 6;
@@ -113,7 +114,7 @@
             // 
             // btnUpdateUser
             // 
-            btnUpdateUser.Location = new Point(947, 389);
+            btnUpdateUser.Location = new Point(859, 370);
             btnUpdateUser.Name = "btnUpdateUser";
             btnUpdateUser.Size = new Size(351, 49);
             btnUpdateUser.TabIndex = 5;
@@ -124,16 +125,27 @@
             // listBoxGebruikers
             // 
             listBoxGebruikers.FormattingEnabled = true;
-            listBoxGebruikers.Location = new Point(536, 16);
+            listBoxGebruikers.Location = new Point(424, 16);
             listBoxGebruikers.Name = "listBoxGebruikers";
             listBoxGebruikers.Size = new Size(387, 564);
             listBoxGebruikers.TabIndex = 7;
+            // 
+            // btnUitloggen
+            // 
+            btnUitloggen.Location = new Point(1222, 16);
+            btnUitloggen.Name = "btnUitloggen";
+            btnUitloggen.Size = new Size(94, 137);
+            btnUitloggen.TabIndex = 8;
+            btnUitloggen.Text = "Uitloggen";
+            btnUitloggen.UseVisualStyleBackColor = true;
+            btnUitloggen.Click += btnUitloggen_Click;
             // 
             // Beheerderscherm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1328, 600);
+            Controls.Add(btnUitloggen);
             Controls.Add(listBoxGebruikers);
             Controls.Add(btnUpdateUser);
             Controls.Add(btnDeleteUser);
@@ -160,5 +172,6 @@
         private Button btnDeleteUser;
         private Button btnUpdateUser;
         private ListBox listBoxGebruikers;
+        private Button btnUitloggen;
     }
 }

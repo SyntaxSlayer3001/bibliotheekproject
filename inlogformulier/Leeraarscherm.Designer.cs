@@ -35,6 +35,7 @@
             btnDeleteBoek = new Button();
             tbZoekTitel = new TextBox();
             label1 = new Label();
+            btnUitloggen = new Button();
             SuspendLayout();
             // 
             // tbBoekenlijst
@@ -48,7 +49,7 @@
             // 
             // btnAddboek
             // 
-            btnAddboek.Location = new Point(550, 16);
+            btnAddboek.Location = new Point(551, 100);
             btnAddboek.Margin = new Padding(3, 4, 3, 4);
             btnAddboek.Name = "btnAddboek";
             btnAddboek.Size = new Size(351, 49);
@@ -59,7 +60,7 @@
             // 
             // btnRefresh
             // 
-            btnRefresh.Location = new Point(550, 317);
+            btnRefresh.Location = new Point(550, 385);
             btnRefresh.Margin = new Padding(3, 4, 3, 4);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(81, 67);
@@ -70,9 +71,9 @@
             // 
             // btnBoekUpdaten
             // 
-            btnBoekUpdaten.Location = new Point(550, 97);
+            btnBoekUpdaten.Location = new Point(551, 179);
             btnBoekUpdaten.Name = "btnBoekUpdaten";
-            btnBoekUpdaten.Size = new Size(351, 49);
+            btnBoekUpdaten.Size = new Size(352, 49);
             btnBoekUpdaten.TabIndex = 2;
             btnBoekUpdaten.Text = "Boek updaten";
             btnBoekUpdaten.UseVisualStyleBackColor = true;
@@ -80,7 +81,7 @@
             // 
             // btnDeleteBoek
             // 
-            btnDeleteBoek.Location = new Point(550, 184);
+            btnDeleteBoek.Location = new Point(551, 259);
             btnDeleteBoek.Name = "btnDeleteBoek";
             btnDeleteBoek.Size = new Size(351, 49);
             btnDeleteBoek.TabIndex = 3;
@@ -90,7 +91,7 @@
             // 
             // tbZoekTitel
             // 
-            tbZoekTitel.Location = new Point(700, 259);
+            tbZoekTitel.Location = new Point(699, 326);
             tbZoekTitel.Margin = new Padding(3, 4, 3, 4);
             tbZoekTitel.Name = "tbZoekTitel";
             tbZoekTitel.Size = new Size(202, 27);
@@ -100,17 +101,28 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(550, 259);
+            label1.Location = new Point(550, 326);
             label1.Name = "label1";
             label1.Size = new Size(110, 20);
             label1.TabIndex = 6;
             label1.Text = "Zoeken op titel";
+            // 
+            // btnUitloggen
+            // 
+            btnUitloggen.Location = new Point(550, 16);
+            btnUitloggen.Name = "btnUitloggen";
+            btnUitloggen.Size = new Size(351, 49);
+            btnUitloggen.TabIndex = 7;
+            btnUitloggen.Text = "Uitloggen";
+            btnUitloggen.UseVisualStyleBackColor = true;
+            btnUitloggen.Click += btnUitloggen_Click;
             // 
             // Leeraarscherm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(914, 600);
+            Controls.Add(btnUitloggen);
             Controls.Add(label1);
             Controls.Add(tbZoekTitel);
             Controls.Add(btnDeleteBoek);
@@ -134,5 +146,6 @@
         private Button btnDeleteBoek;
         private TextBox tbZoekTitel;
         private Label label1;
+        private Button btnUitloggen;
     }
 }

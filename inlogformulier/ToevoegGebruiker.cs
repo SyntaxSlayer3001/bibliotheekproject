@@ -1,5 +1,6 @@
 ﻿using Domain_bib.Business;
 using Domain_bib.Persistence;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static inlogformulier.Toevoegscherm;
 using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 
 namespace inlogformulier
@@ -30,6 +32,7 @@ namespace inlogformulier
         public ToevoegGebruiker()
         {
             InitializeComponent();
+            LoadRechten();
         }
 
         /// <summary>
@@ -42,7 +45,7 @@ namespace inlogformulier
             string naam = tbNaam.Text.Trim();
             string voornaam = tbVoornaam.Text.Trim();
             string wachtwoord = tbWachtwoord.Text.Trim();
-            int rechtId = int.TryParse(tbRechtID.Text, out int id) ? id : 0;
+            int rechtId = (int)comboBoxRechtId.SelectedValue;
 
             MessageBox.Show("Gebruiker toegevoegd");
             conn.InsertGebruiker(email, naam, voornaam, wachtwoord, rechtId);
@@ -51,7 +54,41 @@ namespace inlogformulier
             tbNaam.Clear();
             tbVoornaam.Clear();
             tbWachtwoord.Clear();
-            tbRechtID.Clear();
+            comboBoxRechtId.SelectedValue = - 1;
+        }
+
+        private void LoadRechten()
+        {
+            string connectionString = "server=localhost;user=root;database=eindprojectbibliotheek;port=3306;password=1234";
+            var Rechten = new List<Recht>();
+
+            using (var conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT RechtID, Omschrijving FROM tblrechten";
+                using (var cmd = new MySqlCommand(query, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Rechten.Add(new Recht
+                        {
+                            RechtID = reader.GetInt32("RechtID"),
+                            Omschrijving = reader.GetString("Omschrijving")
+                        });
+                    }
+                }
+            }
+
+            comboBoxRechtId.DataSource = Rechten;
+            comboBoxRechtId.DisplayMember = "Omschrijving";
+            comboBoxRechtId.ValueMember = "RechtID";
+        }
+        public class Recht
+                    {
+            public int RechtID { get; set; }
+            public string Omschrijving { get; set; }
+            
         }
     }
 }

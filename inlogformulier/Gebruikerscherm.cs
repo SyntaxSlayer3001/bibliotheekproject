@@ -86,5 +86,12 @@ namespace inlogformulier
                 .ToList();
             UpdateListBox(gefilterd);
         }
+
+        private void btnUitloggen_Click(object sender, EventArgs e)
+        {
+            Form form = new Form1();
+            form.Show();
+            this.Close(); // Hide the current form instead of closing it
+        }
     }
 }

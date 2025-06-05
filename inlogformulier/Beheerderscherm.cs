@@ -52,7 +52,7 @@ namespace inlogformulier
             foreach (var gebruiker in gebruikers)
             {
                 listBoxGebruikers.Items.Add(
-                    $"{gebruiker.GebruikerId}, Naam: {gebruiker.Naam}, Voornaam: {gebruiker.Voornaam}"
+                    $"{gebruiker.GebruikerId}: Naam: {gebruiker.Naam}, Voornaam: {gebruiker.Voornaam}"
                 );
             }
         }
@@ -85,21 +85,6 @@ namespace inlogformulier
         }
 
         /// <summary>
-        /// Opens the form to update a book, after prompting for a valid book ID.
-        /// </summary>
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string input = Interaction.InputBox("Geef het BoekID van het boek dat je wilt updaten:", "BoekID invoeren", "");
-            if (!int.TryParse(input, out int boekenId) || boekenId <= 0)
-            {
-                MessageBox.Show("Ongeldig BoekID.");
-                return;
-            }
-            using var form = new UpdateBoek(boekenId);
-            form.ShowDialog();
-        }
-
-        /// <summary>
         /// Deletes a book after prompting for a valid book ID, then refreshes the list.
         /// </summary>
         private void btnDeleteBoek_Click(object sender, EventArgs e)
@@ -115,6 +100,9 @@ namespace inlogformulier
             LoadBoeken();
         }
 
+        /// <summary>
+        /// function to update a user after prompting for a valid user ID and new details.
+        /// </summary>
         private void btnUpdateUser_Click(object sender, EventArgs e)
         {
             string input = Interaction.InputBox("Geef het GebruikerID van de gebruiker die je wilt updaten:", "GebruikerID invoeren", "");
@@ -169,6 +157,13 @@ namespace inlogformulier
             conn.DeleteGebruiker(gebruikerId);
             MessageBox.Show("Gebruiker is verwijderd.");
             // Hier kun je eventueel een methode aanroepen om de gebruikerslijst te verversen
+        }
+
+        private void btnUitloggen_Click(object sender, EventArgs e)
+        {
+            Form form = new Form1();
+            form.Show();
+            this.Close(); // Sluit het beheerdersscherm na het uitloggen
         }
     }
 }
