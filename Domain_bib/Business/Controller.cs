@@ -75,7 +75,10 @@ namespace Domain_bib.Business
         {
             _bibliotheek.InsertGebruiker(email, naam, voornaam, wachtwoord, rechtId);
         }
-
+        public void InsertLening(int leningId, DateOnly uitleendatum, DateOnly terugbrengdatum)
+        {
+            _bibliotheek.InsertLening(uitleendatum, terugbrengdatum);
+        }
         public void UpdateGebruiker(int gebruikerId, string email, string naam, string voornaam, string wachtwoord, int rechtId)
         {
             _bibliotheek.UpdateGebruiker(gebruikerId, email, naam, voornaam, wachtwoord, rechtId);
@@ -115,6 +118,11 @@ namespace Domain_bib.Business
         public List<Gebruiker> GetGebruikers()
         {
             return _bibliotheek.GetGebruikers();
+        }
+        //getBoekById method to retrieve a book by its ID
+        public Boek GetBoekById(int boekenId)
+        {
+            return _bibliotheek.GetBoekById(boekenId);
         }
     }
 }

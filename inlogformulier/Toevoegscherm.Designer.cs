@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Toevoegscherm));
             tbTitel = new TextBox();
             tbISBN = new TextBox();
             tbUitgever = new TextBox();
@@ -183,6 +184,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(914, 600);
             Controls.Add(comboBoxTaalId);
             Controls.Add(comboBoxGenreId);

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Leeraarscherm));
             tbBoekenlijst = new ListBox();
             btnAddboek = new Button();
             btnRefresh = new Button();
@@ -121,6 +122,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(914, 600);
             Controls.Add(btnUitloggen);
             Controls.Add(label1);

@@ -12,9 +12,17 @@ namespace WebApplicationBibliotheek.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToPage("/Login");
+            }
 
+            // User is logged in, show the Index page normally
+            return Page();
         }
+
+
     }
 }

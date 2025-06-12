@@ -36,6 +36,7 @@
             tbZoekTitel = new TextBox();
             label1 = new Label();
             btnUitloggen = new Button();
+            button1 = new Button();
             SuspendLayout();
             // 
             // tbBoekenlijst
@@ -51,7 +52,7 @@
             // 
             btnRefresh.BackgroundImage = (Image)resources.GetObject("btnRefresh.BackgroundImage");
             btnRefresh.BackgroundImageLayout = ImageLayout.Stretch;
-            btnRefresh.Location = new Point(562, 91);
+            btnRefresh.Location = new Point(562, 175);
             btnRefresh.Margin = new Padding(3, 4, 3, 4);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(81, 67);
@@ -63,7 +64,7 @@
             // 
             btnAflopend.BackgroundImage = (Image)resources.GetObject("btnAflopend.BackgroundImage");
             btnAflopend.BackgroundImageLayout = ImageLayout.Stretch;
-            btnAflopend.Location = new Point(678, 91);
+            btnAflopend.Location = new Point(678, 175);
             btnAflopend.Margin = new Padding(3, 4, 3, 4);
             btnAflopend.Name = "btnAflopend";
             btnAflopend.Size = new Size(81, 67);
@@ -75,7 +76,7 @@
             // 
             btnOplopend.BackgroundImage = (Image)resources.GetObject("btnOplopend.BackgroundImage");
             btnOplopend.BackgroundImageLayout = ImageLayout.Stretch;
-            btnOplopend.Location = new Point(799, 91);
+            btnOplopend.Location = new Point(799, 175);
             btnOplopend.Margin = new Padding(3, 4, 3, 4);
             btnOplopend.Name = "btnOplopend";
             btnOplopend.Size = new Size(81, 67);
@@ -85,7 +86,7 @@
             // 
             // tbZoekTitel
             // 
-            tbZoekTitel.Location = new Point(678, 191);
+            tbZoekTitel.Location = new Point(678, 267);
             tbZoekTitel.Margin = new Padding(3, 4, 3, 4);
             tbZoekTitel.Name = "tbZoekTitel";
             tbZoekTitel.Size = new Size(202, 27);
@@ -95,7 +96,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(562, 191);
+            label1.Location = new Point(562, 267);
             label1.Name = "label1";
             label1.Size = new Size(110, 20);
             label1.TabIndex = 5;
@@ -111,11 +112,23 @@
             btnUitloggen.UseVisualStyleBackColor = true;
             btnUitloggen.Click += btnUitloggen_Click;
             // 
+            // button1
+            // 
+            button1.Location = new Point(562, 96);
+            button1.Name = "button1";
+            button1.Size = new Size(318, 58);
+            button1.TabIndex = 7;
+            button1.Text = "Boek uitlenen";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // Gebruikerscherm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(914, 600);
+            Controls.Add(button1);
             Controls.Add(btnUitloggen);
             Controls.Add(label1);
             Controls.Add(tbZoekTitel);
@@ -139,5 +152,6 @@
         private TextBox tbZoekTitel;
         private Label label1;
         private Button btnUitloggen;
+        private Button button1;
     }
 }

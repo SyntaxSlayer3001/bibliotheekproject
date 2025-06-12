@@ -293,5 +293,67 @@ namespace Domain_bib.Persistence
             }
             return gebruikerlijst;
         }
+        // methode GetBoekById om een boek op te halen op basis van zijn ID
+        public Boek GetBoekById(int boekenId)
+        {
+            using (var connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                var command = new MySqlCommand("SELECT * FROM tblboeken WHERE BoekenId = @boekenId", connection);
+                command.Parameters.AddWithValue("@boekenId", boekenId);
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new Boek
+                        {
+                            BoekenId = Convert.ToInt32(reader["BoekenId"]),
+                            Titel = reader["Titel"].ToString(),
+                            GenreId = Convert.ToInt32(reader["GenreId"]),
+                            Auteur = reader["Auteur"].ToString(),
+                            Uitgever = reader["Uitgever"].ToString(),
+                            Taal = reader["Taal"].ToString(),
+                            Graad = Convert.ToInt32(reader["Graad"]),
+                            Isbn = reader["ISBN"].ToString()
+                        };
+                    }
+                }
+            }
+            return null;
+        }
+        public List<Lening> getleningen()
+        {
+            var list = new List<Lening>();
+            using (var connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                var command = new MySqlCommand("SELECT * FROM tblleningen", connection);
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var lening = new Lening
+                        {
+                            LeningId = Convert.ToInt32(reader["LeningId"]),
+                            Startdatum = DateOnly.FromDateTime(Convert.ToDateTime(reader["DatumUitlening"])),
+                            Einddatum = DateOnly.FromDateTime(Convert.ToDateTime(reader["DatumTerug"]))
+                        };
+                        list.Add(lening);
+                    }
+                }
+            }
+            return list;
+        }
+        public void InsertLening(DateOnly DatumUitlening, DateOnly DatumTerug)
+        {
+            using (var connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                var command = new MySqlCommand("INSERT INTO tblleningen (DatumUitlening, DatumTerug) VALUES (@datumuitlening, @datumterug)", connection);
+                command.Parameters.AddWithValue("@datumuitlening", DatumUitlening);
+                command.Parameters.AddWithValue("@datumterug", DatumTerug);
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }

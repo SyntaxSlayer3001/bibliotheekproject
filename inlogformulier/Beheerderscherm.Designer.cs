@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Beheerderscherm));
             tbBoekenlijst = new ListBox();
             btnAddboek = new Button();
             btnAddUser = new Button();
@@ -90,7 +91,6 @@
             button1.TabIndex = 2;
             button1.Text = "Boek updaten";
             button1.UseVisualStyleBackColor = true;
-         
             // 
             // btnDeleteBoek
             // 
@@ -144,6 +144,8 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1328, 600);
             Controls.Add(btnUitloggen);
             Controls.Add(listBoxGebruikers);

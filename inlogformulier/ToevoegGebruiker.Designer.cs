@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToevoegGebruiker));
             label1 = new Label();
             tbEmail = new TextBox();
             btnToevoegenGebruiker = new Button();
@@ -142,6 +143,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(914, 600);
             Controls.Add(comboBoxRechtId);
             Controls.Add(label5);

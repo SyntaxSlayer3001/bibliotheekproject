@@ -1,0 +1,45 @@
+﻿@page
+@model WebApplicationBibliotheek.Pages.UpdateschermModel
+@{
+    <form method="post">
+        <div class="form-group">
+            <label for="BoekenId">Boek ID</label>
+            <input type="number" class="form-control" id="BoekenId" name="BoekenId" value="@Model.BoekenId" required />
+        </div>
+        <div class="form-group">
+            <label for="Titel">Titel</label>
+            <input type="text" class="form-control" id="Titel" name="Titel" value="@Model.Titel"  />
+        </div>
+        <div class="form-group">
+            <label for="GenreId">Genre ID</label>
+            <input type="number" class="form-control" id="GenreId" name="GenreId" value="@Model.GenreId"  />
+        </div>
+        <div class="form-group">
+            <label for="Auteur">Auteur</label>
+            <input type="text" class="form-control" id="Auteur" name="Auteur" value="@Model.Auteur"  />
+        </div>
+        <div class="form-group">
+            <label for="Uitgever">Uitgever</label>
+            <input type="text" class="form-control" id="Uitgever" name="Uitgever" value="@Model.Uitgever"  />
+        </div>
+        <div class="form-group">
+            <label for="TaalId">Taal ID</label>
+            <input type="number" class="form-control" id="TaalId" name="TaalId" value="@Model.TaalId"/>
+        </div>
+        <div class="form-group">
+            <label for="Graad">Graad</label>
+            <input type="number" class="form-control" id="Graad" name="Graad" value="@Model.Graad"/>
+        </div>
+        <div class="form-group">
+            <label for="ISBN">ISBN</label>
+            <input type="text" class="form-control" id="ISBN" name="ISBN" value="@Model.ISBN"/>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Bijwerken</button>
+    </form>
+}
+
+@if (Model.Bericht != null)
+{
+    <div class="alert alert-success mt-3">@Model.Bericht</div>
+}

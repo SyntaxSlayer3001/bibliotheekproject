@@ -93,5 +93,12 @@ namespace inlogformulier
             form.Show();
             this.Close(); // Hide the current form instead of closing it
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+           Leningen leningenForm = new Leningen();
+            leningenForm.Show();
+            this.Hide(); // Hide the current form instead of closing it
+        }
     }
 }

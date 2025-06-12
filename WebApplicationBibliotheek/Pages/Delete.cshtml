@@ -1,0 +1,18 @@
+﻿@page
+@model WebApplicationBibliotheek.Pages.DeleteModel
+@{
+    ViewData["Titel"] = "Delete Book";
+
+    <form method="post">
+        <div class="form-group">
+            <label for="BoekenId">Boek ID</label>
+            <input type="number" class="form-control" id="BoekenId" name="BoekenId" value="@Model.BoekenId" required />
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Toevoegen</button>
+    </form>
+}
+@if (Model.Bericht != null)
+{
+    <div class="alert alert-success mt-3">@Model.Bericht</div>
+}
