@@ -14,39 +14,41 @@ using System.Windows.Forms;
 namespace inlogformulier
 {
     /// <summary>
-    /// Represents the form for adding a new book to the library system.
-    /// Provides UI actions for entering book details and submitting them to the database.
+    /// Vertegenwoordigt het formulier voor het toevoegen van een nieuw boek aan het bibliotheeksysteem.
+    /// Biedt UI-acties voor het invoeren van boekgegevens en het opslaan in de database.
     /// </summary>
     public partial class Toevoegscherm : Form
     {
         /// <summary>
-        /// Controller instance for business logic operations.
+        /// Controller-instantie voor businesslogica-operaties.
         /// </summary>
         private readonly Controller conn = new();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Toevoegscherm"/> class.
+        /// Initialiseert een nieuwe instantie van het <see cref="Toevoegscherm"/>-formulier.
         /// </summary>
         public Toevoegscherm()
         {
-            InitializeComponent();
-            LoadGenres();
-            LoadTalen();
+            InitializeComponent(); // Initialiseert de UI-componenten
+            LoadGenres();          // Laadt de genres in de combobox
+            LoadTalen();           // Laadt de talen in de combobox
         }
 
         /// <summary>
-        /// Handles the click event for the "Toevoegen" button.
-        /// Collects book input, adds the book to the database, and clears the input fields.
+        /// Verwerkt het klikken op de knop "Toevoegen".
+        /// Verzamelt boekgegevens, voegt het boek toe aan de database en wist de invoervelden.
         /// </summary>
         private void btnToevoegen_Click(object sender, EventArgs e)
         {
+            // Haal de waarden uit de tekstvakken en comboboxen
             string Titel = tbTitel.Text;
             int GenreId = Convert.ToInt32(comboBoxGenreId.SelectedValue);
-            int selectedGenreId = (int)comboBoxGenreId.SelectedValue;
+            int selectedGenreId = (int)comboBoxGenreId.SelectedValue; // (Dubbel, kan evt. weg)
             string Auteur = tbAuteur.Text;
             string Uitgever = tbUitgever.Text;
             int TaalId = (int)comboBoxTaalId.SelectedValue;
             int graad;
+            // Controleer of graad een geldig getal is
             if (!int.TryParse(tbGraad.Text, out graad))
             {
                 MessageBox.Show("Please enter a valid number for 'graad'.");
@@ -54,10 +56,12 @@ namespace inlogformulier
             }
             string isbn = tbISBN.Text;
 
+            // Voeg het boek toe via de controller
             conn.InsertBoek(Titel, GenreId, Auteur, Uitgever, TaalId, graad, isbn);
 
-            MessageBox.Show("Boek is toegevoegd");
+            MessageBox.Show("Boek is toegevoegd"); // Bevestig toevoegen
 
+            // Maak de invoervelden leeg voor een volgende invoer
             tbTitel.Clear();
             comboBoxGenreId.SelectedIndex = -1;
             tbAuteur.Clear();
@@ -68,16 +72,16 @@ namespace inlogformulier
         }
 
         /// <summary>
-        /// Loads genres from the database and populates the genre combo box.
-        /// Establishes a connection to the MySQL database, retrieves all genres from the 'tblGenre' table,
-        /// and adds them to a list of Genre objects. The comboBoxGenreId is then populated with this list,
-        /// displaying the genre name and using the genre ID as the value.
+        /// Laadt genres uit de database en vult de genre-combobox.
+        /// Maakt verbinding met de MySQL-database, haalt alle genres op uit 'tblGenre'
+        /// en vult de combobox met deze lijst.
         /// </summary>
         private void LoadGenres()
         {
             string connectionString = "server=localhost;user=root;database=eindprojectbibliotheek;port=3306;password=1234";
             var genres = new List<Genre>();
 
+            // Maak verbinding met de database en haal alle genres op
             using (var conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
@@ -87,6 +91,7 @@ namespace inlogformulier
                 {
                     while (reader.Read())
                     {
+                        // Voeg elk genre toe aan de lijst
                         genres.Add(new Genre
                         {
                             Id = reader.GetInt32("GenreID"),
@@ -96,17 +101,23 @@ namespace inlogformulier
                 }
             }
 
+            // Koppel de genreslijst aan de combobox
             comboBoxGenreId.DataSource = genres;
-            comboBoxGenreId.DisplayMember = "Name";
-            comboBoxGenreId.ValueMember = "Id";
+            comboBoxGenreId.DisplayMember = "Name"; // Toon de naam in de UI
+            comboBoxGenreId.ValueMember = "Id";     // Gebruik Id als waarde
         }
 
-
+        /// <summary>
+        /// Laadt talen uit de database en vult de taal-combobox.
+        /// Maakt verbinding met de MySQL-database, haalt alle talen op uit 'tbltaal'
+        /// en vult de combobox met deze lijst.
+        /// </summary>
         private void LoadTalen()
         {
             string connectionString = "server=localhost;user=root;database=eindprojectbibliotheek;port=3306;password=1234";
             var talen = new List<Taal>();
 
+            // Maak verbinding met de database en haal alle talen op
             using (var conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
@@ -116,6 +127,7 @@ namespace inlogformulier
                 {
                     while (reader.Read())
                     {
+                        // Voeg elke taal toe aan de lijst
                         talen.Add(new Taal
                         {
                             Id = reader.GetInt32("TaalID"),
@@ -125,29 +137,41 @@ namespace inlogformulier
                 }
             }
 
+            // Koppel de talenlijst aan de combobox
             comboBoxTaalId.DataSource = talen;
-            comboBoxTaalId.DisplayMember = "Name";
-            comboBoxTaalId.ValueMember = "Id";
+            comboBoxTaalId.DisplayMember = "Name"; // Toon de naam in de UI
+            comboBoxTaalId.ValueMember = "Id";     // Gebruik Id als waarde
         }
+
         /// <summary>
-        /// Represents a genre with an ID and a name.
+        /// Klasse die een genre voorstelt met een ID en een naam.
         /// </summary>
         public class Genre
         {
             /// <summary>
-            /// Gets or sets the ID of the genre.
+            /// Het unieke ID van het genre.
             /// </summary>
             public int Id { get; set; }
 
             /// <summary>
-            /// Gets or sets the name of the genre.
+            /// De naam van het genre.
             /// </summary>
             public string Name { get; set; }
         }
+
+        /// <summary>
+        /// Klasse die een taal voorstelt met een ID en een naam.
+        /// </summary>
         public class Taal
         {
+            /// <summary>
+            /// Het unieke ID van de taal.
+            /// </summary>
             public int Id { get; set; }
 
+            /// <summary>
+            /// De naam van de taal.
+            /// </summary>
             public string Name { get; set; }
         }
     }

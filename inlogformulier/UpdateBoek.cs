@@ -16,42 +16,42 @@ using static inlogformulier.Toevoegscherm;
 namespace inlogformulier
 {
     /// <summary>
-    /// Represents the form for updating an existing book in the library system.
-    /// Provides UI actions for entering new book details and submitting the update to the database.
+    /// Vertegenwoordigt het formulier voor het bijwerken van een bestaand boek in het bibliotheeksysteem.
+    /// Biedt UI-acties voor het invoeren van nieuwe boekgegevens en het doorvoeren van de update in de database.
     /// </summary>
     public partial class UpdateBoek : Form
     {
         /// <summary>
-        /// The unique ID of the book to update.
+        /// Het unieke ID van het boek dat geüpdatet moet worden.
         /// </summary>
         private int _boekenId;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateBoek"/> class with the specified book ID.
-        /// Sets up the form and configures the genre ComboBox to only allow selection from the list (no free text).
+        /// Initialiseert een nieuwe instantie van het <see cref="UpdateBoek"/>-formulier met het opgegeven boek-ID.
+        /// Zet het formulier op en vult de genre- en taal-comboboxen.
         /// </summary>
-        /// <param name="boekenId">The unique ID of the book to update.</param>
+        /// <param name="boekenId">Het unieke ID van het boek dat geüpdatet moet worden.</param>
         public UpdateBoek(int boekenId)
         {
-            InitializeComponent();
-            _boekenId = boekenId;
-            LoadGenres();
-            LoadTalen();
-            //this.Load += UpdateBoek_Load;
+            InitializeComponent(); // Initialiseert de UI-componenten
+            _boekenId = boekenId;  // Sla het boek-ID op voor latere updates
+            LoadGenres();          // Laad de genres in de combobox
+            LoadTalen();           // Laad de talen in de combobox
+            //this.Load += UpdateBoek_Load; // (optioneel) Eventhandler voor form load
         }
         
         /// <summary>
-        /// Controller instance for business logic operations.
+        /// Controller-instantie voor businesslogica-operaties.
         /// </summary>
         Controller conn = new Controller();
 
         /// <summary>
-        /// Handles the click event for the "Update Boek" button.
-        /// Collects updated book input, updates the book in the database, and clears the input fields.
+        /// Verwerkt het klikken op de knop "Update Boek".
+        /// Verzamelt de nieuwe boekgegevens, werkt het boek bij in de database en wist de invoervelden.
         /// </summary>
         private void btnUpdateBoek_Click(object sender, EventArgs e)
         {
-            // Collect new values
+            // Verzamel de nieuwe waarden uit de invoervelden
             string titel = tbTitelUpdate.Text.Trim();
             int genreId = (int)comboBoxUpdateGenre.SelectedValue;
             string auteur = tbAuteurUpdate.Text.Trim();
@@ -60,11 +60,11 @@ namespace inlogformulier
             int graad = int.TryParse(tbGraadUpdate.Text, out int graadId) ? graadId : 0;
             string isbn = tbISBNUpdate.Text.Trim();
 
-            // Update the book
+            // Werk het boek bij via de controller
             conn.UpdateBoek(_boekenId, titel, genreId, auteur, uitgever, taal, graad, isbn);
-            MessageBox.Show("Boek geüpdatet");
+            MessageBox.Show("Boek geüpdatet"); // Bevestig update
 
-            // Clear fields
+            // Maak de invoervelden leeg voor een volgende bewerking
             tbAuteurUpdate.Clear();
             comboBoxUpdateGenre.SelectedIndex = -1;
             tbGraadUpdate.Clear();
@@ -75,14 +75,14 @@ namespace inlogformulier
         }
 
         /// <summary>
-        /// Retrieves the list of genres from the database.
+        /// Haalt de lijst met genres op uit de database en vult de genre-combobox.
         /// </summary>
-        /// <returns>A list of genres.</returns>
         private void LoadGenres()
         {
             string connectionString = "server=localhost;user=root;database=eindprojectbibliotheek;port=3306;password=1234";
             var genres = new List<Genre>();
 
+            // Maak verbinding met de database en haal alle genres op
             using (var conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
@@ -92,6 +92,7 @@ namespace inlogformulier
                 {
                     while (reader.Read())
                     {
+                        // Voeg elk genre toe aan de lijst
                         genres.Add(new Genre
                         {
                             Id = reader.GetInt32("GenreID"),
@@ -101,15 +102,21 @@ namespace inlogformulier
                 }
             }
 
+            // Koppel de genreslijst aan de combobox
             comboBoxUpdateGenre.DataSource = genres;
-            comboBoxUpdateGenre.DisplayMember = "Name";
-            comboBoxUpdateGenre.ValueMember = "Id";
+            comboBoxUpdateGenre.DisplayMember = "Name"; // Toon de naam in de UI
+            comboBoxUpdateGenre.ValueMember = "Id";     // Gebruik Id als waarde
         }
+
+        /// <summary>
+        /// Haalt de lijst met talen op uit de database en vult de taal-combobox.
+        /// </summary>
         private void LoadTalen()
         {
             string connectionString = "server=localhost;user=root;database=eindprojectbibliotheek;port=3306;password=1234";
             var talen = new List<Taal>();
 
+            // Maak verbinding met de database en haal alle talen op
             using (var conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
@@ -119,6 +126,7 @@ namespace inlogformulier
                 {
                     while (reader.Read())
                     {
+                        // Voeg elke taal toe aan de lijst
                         talen.Add(new Taal
                         {
                             Id = reader.GetInt32("TaalID"),
@@ -128,13 +136,15 @@ namespace inlogformulier
                 }
             }
 
+            // Koppel de talenlijst aan de combobox
             comboBoxUpdateTaal.DataSource = talen;
-            comboBoxUpdateTaal.DisplayMember = "Name";
-            comboBoxUpdateTaal.ValueMember = "Id";
+            comboBoxUpdateTaal.DisplayMember = "Name"; // Toon de naam in de UI
+            comboBoxUpdateTaal.ValueMember = "Id";     // Gebruik Id als waarde
         }
+
         /// <summary>
-        /// Handles the Load event for the UpdateBoek form.
-        /// Configures the genre ComboBox to display genres retrieved from the database.
+        /// (Optioneel) Eventhandler voor het laden van het formulier.
+        /// Kan gebruikt worden om de genre-combobox te configureren.
         /// </summary>
         //private void UpdateBoek_Load(object sender, EventArgs e)
         //{
@@ -144,5 +154,4 @@ namespace inlogformulier
         //    comboBoxUpdateGenre.ValueMember = "Id";
         //}
     }
-
 }

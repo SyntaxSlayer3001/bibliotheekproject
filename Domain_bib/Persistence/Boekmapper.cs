@@ -4,36 +4,31 @@ using MySql.Data.MySqlClient;
 namespace Domain_bib.Persistence
 {
     /// <summary>
-    /// Handles database operations for books and users in the library system.
-    /// Provides methods to insert, update, delete, and retrieve books and users.
+    /// Verzorgt database-operaties voor boeken, gebruikers en leningen in het bibliotheeksysteem.
+    /// Biedt methoden om boeken en gebruikers toe te voegen, te wijzigen, te verwijderen en op te halen.
     /// </summary>
     public class Boekmapper
     {
         /// <summary>
-        /// The connection string used to connect to the MySQL database.
+        /// De connection string die gebruikt wordt om verbinding te maken met de MySQL-database.
         /// </summary>
         private readonly string _connectionString;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Boekmapper"/> class with a default connection string.
+        /// Initialiseert een nieuwe instantie van de <see cref="Boekmapper"/> klasse met een standaard connection string.
         /// </summary>
         public Boekmapper()
         {
+            // Connection string voor de lokale MySQL-database
             _connectionString = "server=localhost;user=root;database=eindprojectbibliotheek;port=3306;password=1234";
         }
 
         /// <summary>
-        /// Inserts a new book into the database.
+        /// Voegt een nieuw boek toe aan de database.
         /// </summary>
-        /// <param name="titel">The title of the book.</param>
-        /// <param name="GenreId">The genre ID of the book.</param>
-        /// <param name="auteur">The author of the book.</param>
-        /// <param name="uitgever">The publisher of the book.</param>
-        /// <param name="taalId">The language of the book.</param>
-        /// <param name="graad">The grade of the book.</param>
-        /// <param name="isbn">The ISBN of the book.</param>
         public void InsertBoek(string titel, int GenreId, string auteur, string uitgever, int taalId, int graad, string isbn)
         {
+            // Maak verbinding met de database en voer een INSERT-query uit
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
@@ -50,18 +45,20 @@ namespace Domain_bib.Persistence
         }
 
         /// <summary>
-        /// Retrieves all books from the database.
+        /// Haalt alle boeken op uit de database.
         /// </summary>
-        /// <returns>A list of <see cref="Boek"/> objects.</returns>
+        /// <returns>Lijst van <see cref="Boek"/> objecten.</returns>
         public List<Boek> GetBoeken()
         {
             var boekenlijst = new List<Boek>();
+            // Maak verbinding met de database en voer een SELECT-query uit
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
                 var command = new MySqlCommand("select * from tblboeken", connection);
                 using (var reader = command.ExecuteReader())
                 {
+                    // Lees alle rijen uit de resultset en maak Boek-objecten aan
                     while (reader.Read())
                     {
                         var boek = new Boek
@@ -83,13 +80,12 @@ namespace Domain_bib.Persistence
         }
 
         /// <summary>
-        /// Retrieves the rights ID for a user based on email and password.
+        /// Haalt het rechtenniveau op van een gebruiker op basis van e-mail en wachtwoord.
         /// </summary>
-        /// <param name="email">The user's email address.</param>
-        /// <param name="password">The user's password.</param>
-        /// <returns>The rights ID if found; otherwise, null.</returns>
+        /// <returns>RechtID indien gevonden, anders null.</returns>
         public int? GetRechtId(string email, string password)
         {
+            // Zoek het rechtenniveau van de gebruiker met opgegeven e-mail en wachtwoord
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
@@ -109,12 +105,12 @@ namespace Domain_bib.Persistence
         }
 
         /// <summary>
-        /// Retrieves the rights ID for a user based on their user ID.
+        /// Haalt het rechtenniveau op van een gebruiker op basis van zijn/haar ID.
         /// </summary>
-        /// <param name="gebruikerId">The user's unique ID.</param>
-        /// <returns>The rights ID if found; otherwise, null.</returns>
+        /// <returns>RechtID indien gevonden, anders null.</returns>
         public int? GetRechtIdByGebruikerId(int gebruikerId)
         {
+            // Zoek het rechtenniveau van de gebruiker met opgegeven ID
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
@@ -132,15 +128,11 @@ namespace Domain_bib.Persistence
         }
 
         /// <summary>
-        /// Inserts a new user into the database.
+        /// Voegt een nieuwe gebruiker toe aan de database.
         /// </summary>
-        /// <param name="email">The user's email address.</param>
-        /// <param name="naam">The user's last name.</param>
-        /// <param name="voornaam">The user's first name.</param>
-        /// <param name="wachtwoord">The user's password.</param>
-        /// <param name="rechtId">The user's rights ID.</param>
         public void InsertGebruiker(string email, string naam, string voornaam, string wachtwoord, int rechtId)
         {
+            // Maak verbinding met de database en voer een INSERT-query uit
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
@@ -156,8 +148,12 @@ namespace Domain_bib.Persistence
             }
         }
 
+        /// <summary>
+        /// Wijzigt een bestaande gebruiker in de database.
+        /// </summary>
         public void UpdateGebruiker(int gebruikerId, string email, string naam, string voornaam, string wachtwoord, int rechtId)
         {
+            // Maak verbinding met de database en voer een UPDATE-query uit
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
@@ -174,8 +170,12 @@ namespace Domain_bib.Persistence
             }
         }
 
+        /// <summary>
+        /// Verwijdert een gebruiker uit de database.
+        /// </summary>
         public void DeleteGebruiker(int gebruikerId)
         {
+            // Maak verbinding met de database en voer een DELETE-query uit
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
@@ -186,18 +186,11 @@ namespace Domain_bib.Persistence
         }
 
         /// <summary>
-        /// Updates an existing book in the database.
+        /// Wijzigt een bestaand boek in de database.
         /// </summary>
-        /// <param name="boekenId">The unique book ID.</param>
-        /// <param name="titel">The title of the book.</param>
-        /// <param name="genreId">The genre ID.</param>
-        /// <param name="auteur">The author of the book.</param>
-        /// <param name="uitgever">The publisher of the book.</param>
-        /// <param name="taal">The language of the book.</param>
-        /// <param name="graad">The grade of the book.</param>
-        /// <param name="isbn">The ISBN of the book.</param>
         public void UpdateBoek(int boekenId, string titel, int genreId, string auteur, string uitgever, int taal, int graad, string isbn)
         {
+            // Maak verbinding met de database en voer een UPDATE-query uit
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
@@ -217,11 +210,11 @@ namespace Domain_bib.Persistence
         }
 
         /// <summary>
-        /// Deletes a book from the database.
+        /// Verwijdert een boek uit de database.
         /// </summary>
-        /// <param name="boekenId">The unique book ID to delete.</param>
         public void DeleteBoek(int boekenId)
         {
+            // Maak verbinding met de database en voer een DELETE-query uit
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
@@ -232,12 +225,12 @@ namespace Domain_bib.Persistence
         }
 
         /// <summary>
-        /// Retrieves a user by their unique ID.
+        /// Haalt een gebruiker op op basis van zijn/haar ID.
         /// </summary>
-        /// <param name="gebruikerId">The user's unique ID.</param>
-        /// <returns>A tuple containing the user's email, name, first name, password, and rights ID if found; otherwise, null.</returns>
+        /// <returns>Tuple met gebruikersgegevens indien gevonden, anders null.</returns>
         public (string Email, string Naam, string Voornaam, string Wachtwoord, int RechtId)? GetGebruikerById(int gebruikerId)
         {
+            // Zoek de gebruiker met het opgegeven ID
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
@@ -264,18 +257,20 @@ namespace Domain_bib.Persistence
         }
 
         /// <summary>
-        /// Retrieves all users from the database.
+        /// Haalt alle gebruikers op uit de database.
         /// </summary>
-        /// <returns>A list of tuples containing user details.</returns>
+        /// <returns>Lijst van <see cref="Gebruiker"/> objecten.</returns>
         public List<Gebruiker> GetGebruikers()
         {
             var gebruikerlijst = new List<Gebruiker>();
+            // Maak verbinding met de database en voer een SELECT-query uit
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
                 var command = new MySqlCommand("select * from tblgebruiker", connection);
                 using (var reader = command.ExecuteReader())
                 {
+                    // Lees alle rijen uit de resultset en maak Gebruiker-objecten aan
                     while (reader.Read())
                     {
                         var gebruiker = new Gebruiker
@@ -293,9 +288,15 @@ namespace Domain_bib.Persistence
             }
             return gebruikerlijst;
         }
-        // methode GetBoekById om een boek op te halen op basis van zijn ID
+
+        /// <summary>
+        /// Haalt een boek op uit de database op basis van zijn ID.
+        /// </summary>
+        /// <param name="boekenId">Het unieke ID van het boek.</param>
+        /// <returns>Het <see cref="Boek"/> object indien gevonden, anders null.</returns>
         public Boek GetBoekById(int boekenId)
         {
+            // Zoek het boek met het opgegeven ID
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
@@ -321,15 +322,22 @@ namespace Domain_bib.Persistence
             }
             return null;
         }
+
+        /// <summary>
+        /// Haalt alle leningen op uit de database.
+        /// </summary>
+        /// <returns>Lijst van <see cref="Lening"/> objecten.</returns>
         public List<Lening> getleningen()
         {
             var list = new List<Lening>();
+            // Maak verbinding met de database en voer een SELECT-query uit
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
                 var command = new MySqlCommand("SELECT * FROM tblleningen", connection);
                 using (var reader = command.ExecuteReader())
                 {
+                    // Lees alle rijen uit de resultset en maak Lening-objecten aan
                     while (reader.Read())
                     {
                         var lening = new Lening
@@ -344,8 +352,15 @@ namespace Domain_bib.Persistence
             }
             return list;
         }
+
+        /// <summary>
+        /// Voegt een nieuwe lening toe aan de database.
+        /// </summary>
+        /// <param name="DatumUitlening">De datum waarop het boek is uitgeleend.</param>
+        /// <param name="DatumTerug">De datum waarop het boek teruggebracht moet worden.</param>
         public void InsertLening(DateOnly DatumUitlening, DateOnly DatumTerug)
         {
+            // Maak verbinding met de database en voer een INSERT-query uit
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();

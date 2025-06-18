@@ -7,26 +7,26 @@ using System.Threading.Tasks;
 namespace Domain_bib.Business
 {
     /// <summary>
-    /// Represents a book with properties such as title, author, publisher, language, ISBN, and identifiers.
+    /// Klasse die een boek voorstelt met eigenschappen zoals titel, auteur, uitgever, taal, ISBN en diverse ID's.
     /// </summary>
     public class Boek
     {
-        // Fields
+        // Velden
 
         /// <summary>
-        /// The title of the book.
+        /// De titel, auteur, uitgever, taal en ISBN van het boek.
         /// </summary>
         public string _titel, _auteur, _uitgever, _taal, _isbn;
 
         /// <summary>
-        /// The unique book ID, grade, and genre ID.
+        /// Het unieke boek-ID, de graad en het genre-ID van het boek.
         /// </summary>
         public int _boekenId, _graad, _genreId;
 
         // Properties
 
         /// <summary>
-        /// Gets or sets the title of the book.
+        /// Geeft de titel van het boek.
         /// </summary>
         public string Titel
         {
@@ -35,7 +35,7 @@ namespace Domain_bib.Business
         }
 
         /// <summary>
-        /// Gets or sets the genre ID of the book.
+        /// Geeft het genre-ID van het boek.
         /// </summary>
         public int GenreId
         {
@@ -44,7 +44,7 @@ namespace Domain_bib.Business
         }
 
         /// <summary>
-        /// Gets or sets the author of the book.
+        /// Geeft de auteur van het boek.
         /// </summary>
         public string Auteur
         {
@@ -53,7 +53,7 @@ namespace Domain_bib.Business
         }
 
         /// <summary>
-        /// Gets or sets the publisher of the book.
+        /// Geeft de uitgever van het boek.
         /// </summary>
         public string Uitgever
         {
@@ -62,7 +62,7 @@ namespace Domain_bib.Business
         }
 
         /// <summary>
-        /// Gets or sets the language of the book.
+        /// Geeft de taal van het boek.
         /// </summary>
         public string Taal
         {
@@ -71,7 +71,7 @@ namespace Domain_bib.Business
         }
 
         /// <summary>
-        /// Gets or sets the unique book ID.
+        /// Geeft het unieke boek-ID.
         /// </summary>
         public int BoekenId
         {
@@ -80,7 +80,7 @@ namespace Domain_bib.Business
         }
 
         /// <summary>
-        /// Gets or sets the grade of the book.
+        /// Geeft de graad van het boek.
         /// </summary>
         public int Graad
         {
@@ -89,7 +89,7 @@ namespace Domain_bib.Business
         }
 
         /// <summary>
-        /// Gets or sets the ISBN of the book.
+        /// Geeft het ISBN van het boek.
         /// </summary>
         public string Isbn
         {
@@ -98,7 +98,7 @@ namespace Domain_bib.Business
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Boek"/> class with default values.
+        /// Standaard constructor. Initialiseert een nieuw boek met lege of standaardwaarden.
         /// </summary>
         public Boek()
         {
@@ -113,16 +113,16 @@ namespace Domain_bib.Business
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Boek"/> class with specified values.
+        /// Constructor waarmee alle eigenschappen van het boek direct ingesteld kunnen worden.
         /// </summary>
-        /// <param name="titel">The title of the book.</param>
-        /// <param name="genreId">The genre ID.</param>
-        /// <param name="auteur">The author of the book.</param>
-        /// <param name="uitgever">The publisher of the book.</param>
-        /// <param name="taal">The language of the book.</param>
-        /// <param name="boekenId">The unique book ID.</param>
-        /// <param name="graad">The grade of the book.</param>
-        /// <param name="isbn">The ISBN of the book.</param>
+        /// <param name="titel">De titel van het boek.</param>
+        /// <param name="genreId">Het genre-ID.</param>
+        /// <param name="auteur">De auteur van het boek.</param>
+        /// <param name="uitgever">De uitgever van het boek.</param>
+        /// <param name="taal">De taal van het boek.</param>
+        /// <param name="boekenId">Het unieke boek-ID.</param>
+        /// <param name="graad">De graad van het boek.</param>
+        /// <param name="isbn">Het ISBN van het boek.</param>
         public Boek(string titel, int genreId, string auteur, string uitgever, string taal, int boekenId, int graad, string isbn)
         {
             _titel = titel;
@@ -136,9 +136,9 @@ namespace Domain_bib.Business
         }
 
         /// <summary>
-        /// Returns a string that represents the current book.
+        /// Geeft een stringrepresentatie van het boek terug, bestaande uit ID, titel en auteur.
         /// </summary>
-        /// <returns>A string containing the book ID, title, and author.</returns>
+        /// <returns>String met boek-ID, titel en auteur.</returns>
         public override string ToString()
         {
             return $"{_boekenId}: Titel: {_titel}, Auteur: {_auteur}";

@@ -8,97 +8,103 @@ using System.Windows.Forms;
 namespace inlogformulier
 {
     /// <summary>
-    /// Represents the user screen for viewing and searching books in the library system.
-    /// Provides functionality to display, sort, and filter the list of books.
+    /// Vertegenwoordigt het gebruikersscherm voor het bekijken en zoeken van boeken in het bibliotheeksysteem.
+    /// Biedt functionaliteit om de boekenlijst te tonen, sorteren en filteren.
     /// </summary>
     public partial class Gebruikerscherm : Form
     {
         /// <summary>
-        /// The list of books currently loaded from the database.
+        /// De lijst met boeken die momenteel uit de database is geladen.
         /// </summary>
         private List<Boek> boekenlijst = new();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Gebruikerscherm"/> class.
-        /// Loads the list of books and sets up the search event handler.
+        /// Initialiseert een nieuwe instantie van het <see cref="Gebruikerscherm"/>.
+        /// Laadt de boekenlijst en koppelt de zoek-eventhandler.
         /// </summary>
         public Gebruikerscherm()
         {
-            InitializeComponent();
-            LoadBoeken();
-            tbZoekTitel.TextChanged += tbZoekTitel_TextChanged;
+            InitializeComponent(); // Initialiseert de UI-componenten
+            LoadBoeken();          // Laadt de boekenlijst bij het opstarten
+            tbZoekTitel.TextChanged += tbZoekTitel_TextChanged; // Koppel eventhandler voor zoeken
         }
 
         /// <summary>
-        /// Loads the list of books from the database and displays them in the UI.
+        /// Laadt de lijst met boeken uit de database en toont deze in de UI.
         /// </summary>
         private void LoadBoeken()
         {
-            var mapper = new Boekmapper();
-            boekenlijst = mapper.GetBoeken();
-            UpdateListBox(boekenlijst);
+            var mapper = new Boekmapper();      // Maak een nieuwe Boekmapper aan
+            boekenlijst = mapper.GetBoeken();   // Haal alle boeken op uit de database
+            UpdateListBox(boekenlijst);         // Toon de boeken in de lijstbox
         }
 
         /// <summary>
-        /// Updates the book list display with the provided collection of books.
+        /// Werkt de boekenlijst in de UI bij met de opgegeven collectie boeken.
         /// </summary>
-        /// <param name="boeken">The collection of books to display.</param>
+        /// <param name="boeken">De collectie boeken die getoond moet worden.</param>
         private void UpdateListBox(IEnumerable<Boek> boeken)
         {
-            tbBoekenlijst.Items.Clear();
+            tbBoekenlijst.Items.Clear();        // Maak de lijstbox leeg
             foreach (var boek in boeken)
             {
-                tbBoekenlijst.Items.Add(boek);
+                tbBoekenlijst.Items.Add(boek);  // Voeg elk boek toe aan de lijstbox
             }
         }
 
         /// <summary>
-        /// Refreshes the list of books displayed in the UI.
+        /// Ververs de boekenlijst in de UI.
         /// </summary>
         private void btnRefresh_Click(object sender, EventArgs e) => LoadBoeken();
 
         /// <summary>
-        /// Sorts the book list in ascending order by title and updates the display.
+        /// Sorteert de boekenlijst oplopend op titel en werkt de weergave bij.
         /// </summary>
         private void btnAflopend_Click(object sender, EventArgs e)
         {
-            var sorted = boekenlijst.OrderBy(b => b.Titel).ToList();
-            UpdateListBox(sorted);
+            var sorted = boekenlijst.OrderBy(b => b.Titel).ToList(); // Sorteer oplopend op titel
+            UpdateListBox(sorted);                                   // Werk de lijstbox bij
         }
 
         /// <summary>
-        /// Sorts the book list in descending order by title and updates the display.
+        /// Sorteert de boekenlijst aflopend op titel en werkt de weergave bij.
         /// </summary>
         private void btnOplopend_Click(object sender, EventArgs e)
         {
-            var sorted = boekenlijst.OrderByDescending(b => b.Titel).ToList();
-            UpdateListBox(sorted);
+            var sorted = boekenlijst.OrderByDescending(b => b.Titel).ToList(); // Sorteer aflopend op titel
+            UpdateListBox(sorted);                                             // Werk de lijstbox bij
         }
 
         /// <summary>
-        /// Filters the book list based on the search term entered in the title search box.
+        /// Filtert de boekenlijst op basis van de zoekterm in het titel-zoekveld.
         /// </summary>
         private void tbZoekTitel_TextChanged(object sender, EventArgs e)
         {
-            string zoekterm = tbZoekTitel.Text.Trim().ToLower();
+            string zoekterm = tbZoekTitel.Text.Trim().ToLower(); // Haal de zoekterm op en maak deze lowercase
             var gefilterd = boekenlijst
-                .Where(b => b.Titel != null && b.Titel.ToLower().Contains(zoekterm))
+                .Where(b => b.Titel != null && b.Titel.ToLower().Contains(zoekterm)) // Filter op titel
                 .ToList();
-            UpdateListBox(gefilterd);
+            UpdateListBox(gefilterd); // Toon de gefilterde lijst
         }
 
+        /// <summary>
+        /// Logt de gebruiker uit en opent het inlogscherm.
+        /// </summary>
         private void btnUitloggen_Click(object sender, EventArgs e)
         {
-            Form form = new Form1();
-            form.Show();
-            this.Close(); // Hide the current form instead of closing it
+            Form form = new Form1(); // Maak een nieuw inlogformulier aan
+            form.Show();             // Toon het inlogformulier
+            this.Close();            // Sluit het huidige scherm
         }
 
+        /// <summary>
+        /// Opent het leningenoverzicht en verbergt het huidige scherm.
+        /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
-           Leningen leningenForm = new Leningen();
-            leningenForm.Show();
-            this.Hide(); // Hide the current form instead of closing it
+            Leningen leningenForm = new Leningen(); // Maak een nieuw leningenformulier aan
+            leningenForm.Show();                    // Toon het leningenformulier
+            this.Hide();                            // Verberg het huidige scherm
         }
     }
 }

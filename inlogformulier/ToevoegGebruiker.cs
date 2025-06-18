@@ -16,52 +16,59 @@ using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 namespace inlogformulier
 {
     /// <summary>
-    /// Represents the form for adding a new user to the library system.
-    /// Provides UI actions for entering user details and submitting them to the database.
+    /// Vertegenwoordigt het formulier voor het toevoegen van een nieuwe gebruiker aan het bibliotheeksysteem.
+    /// Biedt UI-acties voor het invoeren van gebruikersgegevens en het opslaan in de database.
     /// </summary>
     public partial class ToevoegGebruiker : Form
     {
         /// <summary>
-        /// Controller instance for business logic operations.
+        /// Controller-instantie voor businesslogica-operaties.
         /// </summary>
         Controller conn = new Controller();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ToevoegGebruiker"/> class.
+        /// Initialiseert een nieuwe instantie van het <see cref="ToevoegGebruiker"/>-formulier.
         /// </summary>
         public ToevoegGebruiker()
         {
-            InitializeComponent();
-            LoadRechten();
+            InitializeComponent(); // Initialiseert de UI-componenten
+            LoadRechten();         // Laadt de rechten (rollen) in de combobox
         }
 
         /// <summary>
-        /// Handles the click event for the "Toevoegen Gebruiker" button.
-        /// Collects user input, adds the user to the database, and clears the input fields.
+        /// Verwerkt het klikken op de knop "Toevoegen Gebruiker".
+        /// Verzamelt gebruikersinvoer, voegt de gebruiker toe aan de database en wist de invoervelden.
         /// </summary>
         private void btnToevoegenGebruiker_Click(object sender, EventArgs e)
         {
+            // Haal de waarden uit de tekstvakken en combobox
             string email = tbEmail.Text.Trim();
             string naam = tbNaam.Text.Trim();
             string voornaam = tbVoornaam.Text.Trim();
             string wachtwoord = tbWachtwoord.Text.Trim();
             int rechtId = (int)comboBoxRechtId.SelectedValue;
 
-            MessageBox.Show("Gebruiker toegevoegd");
-            conn.InsertGebruiker(email, naam, voornaam, wachtwoord, rechtId);
+            MessageBox.Show("Gebruiker toegevoegd"); // Bevestig toevoegen aan de gebruiker
+            conn.InsertGebruiker(email, naam, voornaam, wachtwoord, rechtId); // Voeg gebruiker toe via de controller
 
+            // Maak de invoervelden leeg voor een volgende invoer
             tbEmail.Clear();
             tbNaam.Clear();
             tbVoornaam.Clear();
             tbWachtwoord.Clear();
-            comboBoxRechtId.SelectedValue = - 1;
+            comboBoxRechtId.SelectedValue = -1;
         }
 
+        /// <summary>
+        /// Laadt de beschikbare rechten (rollen) uit de database en vult de combobox.
+        /// </summary>
         private void LoadRechten()
         {
+            // Connection string voor de MySQL-database
             string connectionString = "server=localhost;user=root;database=eindprojectbibliotheek;port=3306;password=1234";
             var Rechten = new List<Recht>();
 
+            // Maak verbinding met de database en haal alle rechten op
             using (var conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
@@ -71,6 +78,7 @@ namespace inlogformulier
                 {
                     while (reader.Read())
                     {
+                        // Voeg elk recht toe aan de lijst
                         Rechten.Add(new Recht
                         {
                             RechtID = reader.GetInt32("RechtID"),
@@ -80,15 +88,25 @@ namespace inlogformulier
                 }
             }
 
+            // Koppel de rechtenlijst aan de combobox
             comboBoxRechtId.DataSource = Rechten;
-            comboBoxRechtId.DisplayMember = "Omschrijving";
-            comboBoxRechtId.ValueMember = "RechtID";
+            comboBoxRechtId.DisplayMember = "Omschrijving"; // Toon de omschrijving in de UI
+            comboBoxRechtId.ValueMember = "RechtID";       // Gebruik RechtID als waarde
         }
+
+        /// <summary>
+        /// Klasse die een recht (rol) van een gebruiker voorstelt.
+        /// </summary>
         public class Recht
-                    {
+        {
+            /// <summary>
+            /// Het unieke ID van het recht.
+            /// </summary>
             public int RechtID { get; set; }
+            /// <summary>
+            /// De omschrijving van het recht (bijv. "Beheerder", "Gebruiker", "Leerkracht").
+            /// </summary>
             public string Omschrijving { get; set; }
-            
         }
     }
 }

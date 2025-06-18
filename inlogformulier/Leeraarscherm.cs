@@ -14,113 +14,129 @@ using System.Windows.Forms;
 namespace inlogformulier
 {
     /// <summary>
-    /// Represents the teacher screen for managing books in the library system.
-    /// Provides UI actions for adding, updating, deleting, and refreshing books.
+    /// Vertegenwoordigt het leeraarscherm voor het beheren van boeken in het bibliotheeksysteem.
+    /// Biedt UI-acties voor toevoegen, bijwerken, verwijderen en verversen van boeken.
     /// </summary>
     public partial class Leeraarscherm : Form
     {
         /// <summary>
-        /// Controller instance for business logic operations.
+        /// Controller-instantie voor businesslogica-operaties.
         /// </summary>
         Controller conn = new Controller();
-        private List<Boek> boekenlijst = new();
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="Leeraarscherm"/> class.
-        /// Loads the list of books on startup.
+        /// Lijst met boeken die momenteel uit de database is geladen.
+        /// </summary>
+        private List<Boek> boekenlijst = new();
+
+        /// <summary>
+        /// Initialiseert een nieuwe instantie van het <see cref="Leeraarscherm"/>-formulier.
+        /// Laadt de boekenlijst en koppelt de zoek-eventhandler.
         /// </summary>
         public Leeraarscherm()
         {
-            InitializeComponent();
-            LoadBoeken();
-            tbZoekTitel.TextChanged += tbZoekTitel_TextChanged;
+            InitializeComponent(); // Initialiseert de UI-componenten
+            LoadBoeken();          // Laadt de boekenlijst bij het opstarten
+            tbZoekTitel.TextChanged += tbZoekTitel_TextChanged; // Koppel eventhandler voor zoeken op titel
         }
 
         /// <summary>
-        /// Loads the list of books from the database and displays them in the UI.
+        /// Laadt de lijst met boeken uit de database en toont deze in de UI.
         /// </summary>
         private void LoadBoeken()
         {
-            var mapper = new Boekmapper();
-            boekenlijst = mapper.GetBoeken(); // let op: geen 'var'!
-            UpdateListBox(boekenlijst);
+            var mapper = new Boekmapper();      // Maak een nieuwe Boekmapper aan
+            boekenlijst = mapper.GetBoeken();   // Haal alle boeken op uit de database
+            UpdateListBox(boekenlijst);         // Toon de boeken in de lijstbox
         }
+
+        /// <summary>
+        /// Werkt de boekenlijst in de UI bij met de opgegeven collectie boeken.
+        /// </summary>
+        /// <param name="boeken">De collectie boeken die getoond moet worden.</param>
         private void UpdateListBox(IEnumerable<Boek> boeken)
         {
-            tbBoekenlijst.Items.Clear();
+            tbBoekenlijst.Items.Clear();        // Maak de lijstbox leeg
             foreach (var boek in boeken)
             {
-                tbBoekenlijst.Items.Add(boek);
+                tbBoekenlijst.Items.Add(boek);  // Voeg elk boek toe aan de lijstbox
             }
         }
 
         /// <summary>
-        /// Opens the form to add a new book.
+        /// Opent het formulier om een nieuw boek toe te voegen.
         /// </summary>
         private void btnAddboek_Click(object sender, EventArgs e)
         {
-            Form form = new Toevoegscherm();
-            form.ShowDialog();
+            Form form = new Toevoegscherm(); // Maak een nieuw Toevoegscherm aan
+            form.ShowDialog();               // Toon het formulier als dialoog
         }
 
         /// <summary>
-        /// Refreshes the list of books displayed in the UI.
+        /// Ververs de boekenlijst in de UI.
         /// </summary>
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            LoadBoeken();
+            LoadBoeken(); // Herlaad de boekenlijst
         }
 
         /// <summary>
-        /// Opens the form to update a book, after prompting for a valid book ID.
+        /// Opent het formulier om een boek bij te werken, na het opvragen van een geldig boek-ID.
         /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
-            // Vraag om het BoekID
+            // Vraag de gebruiker om het BoekID in te voeren
             string input = Interaction.InputBox("Geef het BoekID van het boek dat je wilt updaten:", "BoekID invoeren", "");
             if (!int.TryParse(input, out int boekenId) || boekenId <= 0)
             {
-                MessageBox.Show("Ongeldig BoekID.");
+                MessageBox.Show("Ongeldig BoekID."); // Toon foutmelding bij ongeldige invoer
                 return;
             }
-            Form form = new UpdateBoek(boekenId); // Geef het ID mee
-            form.ShowDialog();
+            Form form = new UpdateBoek(boekenId); // Maak een nieuw UpdateBoek-formulier aan met het opgegeven ID
+            form.ShowDialog();                    // Toon het formulier als dialoog
         }
 
         /// <summary>
-        /// Deletes a book after prompting for a valid book ID, then refreshes the list.
+        /// Verwijdert een boek na het opvragen van een geldig boek-ID en ververst de lijst.
         /// </summary>
         private void btnDeleteBoek_Click(object sender, EventArgs e)
         {
+            // Vraag de gebruiker om het BoekID in te voeren
             string input = Interaction.InputBox("Geef het BoekID van het boek dat je wilt verwijderen:", "BoekID invoeren", "");
             if (!int.TryParse(input, out int boekenId) || boekenId <= 0)
             {
-                MessageBox.Show("Ongeldig BoekID.");
+                MessageBox.Show("Ongeldig BoekID."); // Toon foutmelding bij ongeldige invoer
                 return;
             }
             else
             {
-                conn.DeleteBoek(boekenId);
-                MessageBox.Show("Boek is verwijderd.");
-                LoadBoeken();
+                conn.DeleteBoek(boekenId);           // Verwijder het boek via de controller
+                MessageBox.Show("Boek is verwijderd."); // Bevestig verwijdering
+                LoadBoeken();                        // Ververs de boekenlijst
             }
         }
 
+        /// <summary>
+        /// Filtert de boekenlijst op basis van de zoekterm in het titel-zoekveld.
+        /// </summary>
         private void tbZoekTitel_TextChanged(object sender, EventArgs e)
         {
-            string zoekterm = tbZoekTitel.Text.Trim().ToLower();
+            string zoekterm = tbZoekTitel.Text.Trim().ToLower(); // Haal de zoekterm op en maak deze lowercase
             var gefilterd = boekenlijst
-                .Where(b => b.Titel != null && b.Titel.ToLower().Contains(zoekterm))
+                .Where(b => b.Titel != null && b.Titel.ToLower().Contains(zoekterm)) // Filter op titel
                 .ToList();
-            UpdateListBox(gefilterd);
+            UpdateListBox(gefilterd); // Toon de gefilterde lijst
         }
-        ///<summary>
-        /// Handles the click event for the "Uitloggen" button.
+
+        /// <summary>
+        /// Verwerkt het klikken op de "Uitloggen"-knop.
         /// Opent het inlogformulier en sluit het huidige scherm.
+        /// </summary>
         private void btnUitloggen_Click(object sender, EventArgs e)
         {
-            Form form = new Form1();
-            form.Show();
-            this.Close();
+            Form form = new Form1(); // Maak een nieuw inlogformulier aan
+            form.Show();             // Toon het inlogformulier
+            this.Close();            // Sluit het huidige scherm
         }
     }
 }
